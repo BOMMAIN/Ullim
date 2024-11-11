@@ -25,4 +25,8 @@ const ContentWrapper = styled.div`
   width: 40%;
   height: 100%;
   background-color: #f4eae0;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
