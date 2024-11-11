@@ -29,14 +29,14 @@ const Header = () => {
 export default Header;
 
 const Wrapper = styled.div`
-  position: absolute;
+  position: fixed;
   z-index: 1000;
-  width: 100%;
+  width: 350px;
   height: 60px;
   top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
-  box-sizing: border-box;
+  background-color: #f4eae0;
 `;

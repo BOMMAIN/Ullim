@@ -21,8 +21,7 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  position: relative;
-  width: 40%;
+  width: 350px;
   height: 100%;
   background-color: #f4eae0;
   overflow: scroll;
