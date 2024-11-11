@@ -3,8 +3,11 @@ import styled from "styled-components";
 import { IoMdHelpCircle } from "react-icons/io";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaBell } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { RouterPath } from "@routes/path";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <div style={{ fontSize: "30px", display: "flex", alignItems: "center" }}>
@@ -13,7 +16,11 @@ const Header = () => {
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
         <FaBell size={30} />
-        <IoPersonSharp size={30} style={{ marginLeft: "8px" }} />
+        <IoPersonSharp
+          size={30}
+          style={{ marginLeft: "8px", cursor: "pointer" }}
+          onClick={() => navigate(RouterPath.myPage)}
+        />
       </div>
     </Wrapper>
   );
