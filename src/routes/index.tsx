@@ -13,8 +13,8 @@ const router = createBrowserRouter([
     children: [
       { path: RouterPath.root, element: <Introduce /> },
       { path: RouterPath.myPage, element: <MyPage /> },
-      { path: RouterPath.communityPage, element: <CommunityPage /> },
       { path: RouterPath.postPage, element: <PostPage /> },
+      { path: RouterPath.communityPage, element: <CommunityPage /> },
       { path: RouterPath.postWritePage, element: <PostWritePage /> },
     ],
   },
