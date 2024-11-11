@@ -21,6 +21,7 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+  position: relative;
   width: 40%;
   height: 100%;
   background-color: #eee;
