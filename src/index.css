@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @keyframes heartbeat {
   0% {
     transform: translateX(0%);
