@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@keyframes heartbeat {
+  0% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  45% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-2%);
+    opacity: 0.8;
+  }
+  95% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}

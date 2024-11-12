@@ -23,5 +23,5 @@ const Wrapper = styled.div`
 const ContentWrapper = styled.div`
   width: 40%;
   height: 100%;
-  background-color: #eee;
+  background-color: #F4EAE0;
 `;
