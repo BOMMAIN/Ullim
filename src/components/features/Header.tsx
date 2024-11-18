@@ -29,9 +29,8 @@ const Header = () => {
 export default Header;
 
 const Wrapper = styled.div`
-  position: fixed;
   z-index: 1000;
-  width: 350px;
+  width: 600px;
   height: 60px;
   top: 0;
   display: flex;

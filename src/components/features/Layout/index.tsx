@@ -14,17 +14,23 @@ const Layout = () => {
 export default Layout;
 
 const Wrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content: center;
+  width: 100vw;
+  height: 100vh;
 `;
 
 const ContentWrapper = styled.div`
-  width: 350px;
+  width: 90vw;
   height: 100%;
+  max-width: 600px;
   background-color: #f4eae0;
-  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2vh;
+  box-sizing: border-box;
+  overflow: auto;
   &::-webkit-scrollbar {
     display: none;
   }
