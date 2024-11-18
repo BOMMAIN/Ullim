@@ -5,48 +5,56 @@ import UserListItem from "@components/CommunityPage/UserListItem";
 
 const CommunityPage = () => {
   return (
-    <Wrapper>
+    <>
       <Header />
-      <Content>
-        <FilterContainer>
-          <Button bgColor="#fff" color="#000">
-            전체
-          </Button>
-          <Button>심근경색</Button>
-          <Button bgColor="#fff" color="#000">
-            50대
-          </Button>
-          <Button bgColor="#fff" color="#000">
-            여성
-          </Button>
-          <Button bgColor="#fff" color="#000">
-            ???
-          </Button>
-        </FilterContainer>
-        <div
-          style={{ width: "100%", display: "flex", justifyContent: "center" }}
-        >
+      <Wrapper>
+        <Content>
+          <FilterContainer>
+            <Button bgColor="#fff" color="#000">
+              전체
+            </Button>
+            <Button>심근경색</Button>
+            <Button bgColor="#fff" color="#000">
+              50대
+            </Button>
+            <Button bgColor="#fff" color="#000">
+              여성
+            </Button>
+            <Button bgColor="#fff" color="#000">
+              ???
+            </Button>
+            <Button bgColor="#fff" color="#000">
+              ???
+            </Button>
+            <Button bgColor="#fff" color="#000">
+              ???
+            </Button>
+          </FilterContainer>
           <div
-            style={{
-              backgroundColor: "#fff",
-              width: "80%",
-              height: "8px",
-              borderRadius: "50px",
-            }}
-          />
-        </div>
-        <UserListContainer>
-          <UserListItem />
-          <UserListItem />
-          <UserListItem />
-          <UserListItem />
-          <UserListItem />
-          <UserListItem />
-          <UserListItem />
-          <UserListItem />
-        </UserListContainer>
-      </Content>
-    </Wrapper>
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <div
+              style={{
+                backgroundColor: "#fff",
+                width: "80%",
+                height: "8px",
+                borderRadius: "50px",
+              }}
+            />
+          </div>
+          <UserListContainer>
+            <UserListItem />
+            <UserListItem />
+            <UserListItem />
+            <UserListItem />
+            <UserListItem />
+            <UserListItem />
+            <UserListItem />
+            <UserListItem />
+          </UserListContainer>
+        </Content>
+      </Wrapper>
+    </>
   );
 };
 
@@ -58,7 +66,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  padding-top: 60px;
+  padding-top: 10px;
   overflow: hidden;
 `;
 
@@ -72,11 +80,11 @@ const Content = styled.div`
 const FilterContainer = styled.div`
   display: flex;
   align-items: center;
-  margin: 5px 0 0 10px;
-  padding: 10px 0 20px 0;
+  margin: 5px 0 5px 10px;
   gap: 15px;
   overflow-x: scroll;
   white-space: nowrap;
+  height: 100px;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -89,7 +97,7 @@ const UserListContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   place-items: center;
-  overflow-y: auto;
+  overflow-y: scroll;
   flex-grow: 1;
   &::-webkit-scrollbar {
     display: none;
