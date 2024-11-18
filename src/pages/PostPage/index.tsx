@@ -8,29 +8,34 @@ const PostPage = () => {
   type FilterType = "view" | "latest";
   const [filter, setFilter] = useState<FilterType>("view");
   return (
-    <Wrapper>
+    <>
       <Header />
-      <Title>닉네임님의 글</Title>
-      <Filter>
-        <ViewSort
-          isActive={filter === "view"}
-          onClick={() => setFilter("view")}
-        >
-          조회순
-        </ViewSort>{" "}
-        <PiLineVertical />
-        <Latest
-          isActive={filter === "latest"}
-          onClick={() => setFilter("latest")}
-        >
-          최신순
-        </Latest>
-      </Filter>
-      <Contents>
-        <PostItem />
-        <PostItem />
-      </Contents>
-    </Wrapper>
+      <Wrapper>
+        <Title>닉네임님의 글</Title>
+        <Filter>
+          <ViewSort
+            isActive={filter === "view"}
+            onClick={() => setFilter("view")}
+          >
+            조회순
+          </ViewSort>{" "}
+          <PiLineVertical />
+          <Latest
+            isActive={filter === "latest"}
+            onClick={() => setFilter("latest")}
+          >
+            최신순
+          </Latest>
+        </Filter>
+        <Contents>
+          <PostItem />
+          <PostItem />
+          <PostItem />
+          <PostItem />
+          <PostItem />
+        </Contents>
+      </Wrapper>
+    </>
   );
 };
 
@@ -45,7 +50,7 @@ const Wrapper = styled.div`
 
 const Title = styled.h2`
   text-align: start;
-  margin: 70px 10px 0 20px;
+  margin: 30px 10px 0 20px;
 `;
 
 const Filter = styled.div`
@@ -62,6 +67,10 @@ const Contents = styled.div`
   padding: 15px 10px;
   height: 100%;
   width: 100%;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ViewSort = styled.span<{ isActive: boolean }>`
