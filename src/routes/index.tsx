@@ -6,6 +6,7 @@ import CommunityPage from "@pages/CommunityPage";
 import PostPage from "@pages/PostPage";
 import PostWritePage from "@pages/PostWritePage";
 import Layout from "@components/features/Layout";
+import DetailPage from "@pages/DetailPage";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       { path: RouterPath.postPage, element: <PostPage /> },
       { path: RouterPath.communityPage, element: <CommunityPage /> },
       { path: RouterPath.postWritePage, element: <PostWritePage /> },
+      { path: RouterPath.postDetailPage, element: <DetailPage /> },
     ],
   },
 ]);
