@@ -21,7 +21,7 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  width: 90vw;
+  width: 430px;
   height: 100%;
   max-width: 600px;
   background-color: #f4eae0;

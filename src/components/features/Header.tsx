@@ -30,7 +30,7 @@ export default Header;
 
 const Wrapper = styled.div`
   z-index: 1000;
-  width: 600px;
+  width: 430px;
   height: 60px;
   top: 0;
   display: flex;
