@@ -82,7 +82,7 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   margin-top: 50px;
 `;
 
@@ -94,10 +94,12 @@ const Form = styled.div`
 `;
 
 const Input = styled.input`
-  border: none;
+  background-color: #f4eae0;
+  border: 1px solid #000;
   padding: 10px;
   font-size: 16px;
   outline: none;
+  border-radius: 5px;
 
   &::placeholder {
     color: #888;
@@ -105,12 +107,15 @@ const Input = styled.input`
 `;
 
 const Textarea = styled.textarea`
-  border: none;
+  background-color: #f4eae0;
+  border: 1px solid #000;
+  border-radius: 5px;
   padding: 15px;
   font-size: 16px;
-  height: 300px;
+  height: 600px;
   resize: none;
   outline: none;
+  margin-top: 10px;
 
   &::placeholder {
     color: #888;
@@ -137,7 +142,7 @@ const ImageButton = styled.button`
 
 const SubmitButton = styled.button`
   position: absolute;
-  bottom: 20px;
+  bottom: 0px;
   right: 20px;
   background-color: #888;
   font-weight: bold;
