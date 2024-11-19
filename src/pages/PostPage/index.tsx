@@ -3,6 +3,8 @@ import Header from "@components/features/Header";
 import PostItem from "@components/PostPage/PostItem";
 import { useState } from "react";
 import { PiLineVertical } from "react-icons/pi";
+import { Link } from "react-router-dom";
+import { RouterPath } from "@routes/path";
 
 const PostPage = () => {
   type FilterType = "view" | "latest";
@@ -28,11 +30,30 @@ const PostPage = () => {
           </Latest>
         </Filter>
         <Contents>
-          <PostItem />
-          <PostItem />
-          <PostItem />
-          <PostItem />
-          <PostItem />
+          <Link
+            to={RouterPath.postDetailPage}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <PostItem />
+          </Link>
+          <Link
+            to={RouterPath.postDetailPage}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <PostItem />
+          </Link>
+          <Link
+            to={RouterPath.postDetailPage}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <PostItem />
+          </Link>
+          <Link
+            to={RouterPath.postDetailPage}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <PostItem />
+          </Link>
         </Contents>
       </Wrapper>
     </>
