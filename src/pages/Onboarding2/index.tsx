@@ -6,7 +6,7 @@ const Onboarding2 = () => {
     <Container>
       <PreviousButton>이전으로</PreviousButton> 
       <Image
-        src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/quick-actions/remove-background-before-qa1.png"
+        src="/images/온보딩2.png"
         alt="쉽게 이해하는 심전도"
       />
       <Title>쉽게 이해하는 심전도 분석</Title>
@@ -54,7 +54,7 @@ const NextButton = styled.button`
   bottom: 20px; /* 컨테이너 아래쪽 여백 20px */
   left: 50%; /* 수평 중앙 정렬을 위해 */
   transform: translateX(-50%); /* 수평 중앙 정렬 조정 */
-  width: 500px; /* 가로로 기다란 버튼 너비 */
+  width: 350px; /* 가로로 기다란 버튼 너비 */
   height: 50px; /* 버튼 높이 설정 */
   border-radius: 25px; /* 둥근 모서리 설정 */
   background-color: #E87C6C; /* 버튼 배경색 설정 */
@@ -77,7 +77,7 @@ const PreviousButton = styled.button`
   width: 100px; /* 버튼의 너비 설정 */
   height: 50px; /* 버튼의 높이 설정 */
   border-radius: 25px; /* 버튼의 모서리를 둥글게 설정 */
-  background-color: #E87C6C; /* 버튼의 배경색 설정 */
+  background-color: #FF9884; /* 버튼의 배경색 설정 */
   color: white; /* 버튼의 텍스트 색상 설정 */
   border: none; /* 버튼의 기본 테두리 제거 */
   font-size: 16px; /* 버튼 텍스트의 크기 설정 */
@@ -85,7 +85,7 @@ const PreviousButton = styled.button`
 
   /* 호버 시 배경색 변경 효과 */
   &:hover {
-    background-color: #f45671; /* 호버 시 배경색 변경 */
+    background-color: #FFCE81; /* 호버 시 배경색 변경 */
   }
 `;
 

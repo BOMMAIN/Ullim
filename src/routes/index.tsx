@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       { path: RouterPath.onboarding2, element: <Onboarding2 /> },
       { path: RouterPath.onboarding3, element: <Onboarding3 /> },
       { path: RouterPath.onboarding4, element: <Onboarding4 /> },
-      { path: RouterPath.heartlist, element: <HeartList /> }
+      { path: RouterPath.heartlist, element: <HeartList /> },
       { path: RouterPath.postDetailPage, element: <DetailPage /> },
       { path: RouterPath.medicalReportResultPage, element: <MedicalReportResultPage /> },  // 추가
       { path: RouterPath.analyzePage, element: <AnalyzeECGPage />},

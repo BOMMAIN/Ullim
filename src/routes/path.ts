@@ -13,7 +13,7 @@ export const RouterPath = {
   onboarding2: "/onboarding2",
   onboarding3: "/onboarding3",
   onboarding4: "/onboarding4",
-  heartlist: "/heartlist"
+  heartlist: "/heartlist",
   medicalReportResultPage: "/medical-report",
   analyzePage: "/analyze-processing-page",
   analyzeResultPage: "/analyze-result-page",
