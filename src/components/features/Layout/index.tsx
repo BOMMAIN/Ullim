@@ -21,13 +21,17 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  width: 90vw; 
+  width: 430px;
   height: 100%;
   max-width: 600px;
-  background-color: #F4EAE0;
+  background-color: #f4eae0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 2vh;
   box-sizing: border-box;
   overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
