@@ -8,8 +8,8 @@ const UserListItem = () => {
       <FaUserAlt size={80} />
       <Name>심정호</Name>
       <Des>
-        닉네임님의 상황과 55% <br />
-        비슷해요!
+        닉네임님의 상황과
+        <br /> 55% 비슷해요!
       </Des>
     </Container>
   );
@@ -18,9 +18,10 @@ const UserListItem = () => {
 export default UserListItem;
 
 const Container = styled.div`
-  width: 160px;
-  height: 170px;
+  width: 200px;
+  height: 200px;
   display: flex;
+  padding: 20px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -28,12 +29,13 @@ const Container = styled.div`
 `;
 
 const Name = styled.span`
+  margin-top: 10px;
   font-size: 18px;
   font-weight: bold;
 `;
 
 const Des = styled.span`
-  font-size: 10px;
+  font-size: 12px;
   color: #4a9efd;
-  margin-top: 20px;
+  margin-top: 10px;
 `;

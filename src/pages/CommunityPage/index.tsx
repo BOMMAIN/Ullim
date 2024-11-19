@@ -61,6 +61,12 @@ const CommunityPage = () => {
             <UserLink to={RouterPath.postPage}>
               <UserListItem />
             </UserLink>
+            <UserLink to={RouterPath.postPage}>
+              <UserListItem />
+            </UserLink>
+            <UserLink to={RouterPath.postPage}>
+              <UserListItem />
+            </UserLink>
           </UserListContainer>
         </Content>
         <StyledLink to={RouterPath.postWritePage}>
@@ -105,7 +111,7 @@ const FilterContainer = styled.div`
 
 const UserListContainer = styled.div`
   width: 100%;
-  padding: 10px 0;
+  padding: 10px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
