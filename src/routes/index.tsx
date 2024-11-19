@@ -15,7 +15,7 @@ import Onboarding4 from "@pages/Onboarding4";
 import HeartList from "@pages/HeartList";
 import DetailPage from "@pages/DetailPage";
 import MedicalReportResultPage from "@pages/MediaclReportResultPage";
-import AnalyzeECGPage from "@pages/AnalyzeECGPage"; 
+import AnalyzeECGPage from "@pages/AnalyzeECGPage";
 import AnalyzeECGResultPage from "@pages/AnalyzeECGResultPage";
 import AnalyzeDiagnosisPage from "@pages/AnalyzeDiagnosisPage";
 
@@ -36,10 +36,16 @@ const router = createBrowserRouter([
       { path: RouterPath.onboarding4, element: <Onboarding4 /> },
       { path: RouterPath.heartlist, element: <HeartList /> },
       { path: RouterPath.postDetailPage, element: <DetailPage /> },
-      { path: RouterPath.medicalReportResultPage, element: <MedicalReportResultPage /> },  // 추가
-      { path: RouterPath.analyzePage, element: <AnalyzeECGPage />},
-      { path: RouterPath.analyzeResultPage, element: <AnalyzeECGResultPage />},
-      { path: RouterPath.analyzeDiagnosisPage, element: <AnalyzeDiagnosisPage />}
+      {
+        path: RouterPath.medicalReportResultPage,
+        element: <MedicalReportResultPage />,
+      },
+      { path: RouterPath.analyzePage, element: <AnalyzeECGPage /> },
+      { path: RouterPath.analyzeResultPage, element: <AnalyzeECGResultPage /> },
+      {
+        path: RouterPath.analyzeDiagnosisPage,
+        element: <AnalyzeDiagnosisPage />,
+      },
     ],
   },
 ]);
