@@ -6,6 +6,7 @@ import CommunityPage from "@pages/CommunityPage";
 import PostPage from "@pages/PostPage";
 import PostWritePage from "@pages/PostWritePage";
 import Layout from "@components/features/Layout";
+import DetailPage from "@pages/DetailPage";
 import MedicalReportResultPage from "@pages/MediaclReportResultPage";
 import AnalyzeECGPage from "@pages/AnalyzeECGPage"; 
 import AnalyzeECGResultPage from "@pages/AnalyzeECGResultPage";
@@ -17,9 +18,10 @@ const router = createBrowserRouter([
     children: [
       { path: RouterPath.root, element: <Introduce /> },
       { path: RouterPath.myPage, element: <MyPage /> },
-      { path: RouterPath.communityPage, element: <CommunityPage /> },
       { path: RouterPath.postPage, element: <PostPage /> },
+      { path: RouterPath.communityPage, element: <CommunityPage /> },
       { path: RouterPath.postWritePage, element: <PostWritePage /> },
+      { path: RouterPath.postDetailPage, element: <DetailPage /> },
       { path: RouterPath.medicalReportResultPage, element: <MedicalReportResultPage /> },  // 추가
       { path: RouterPath.analyzePage, element: <AnalyzeECGPage />},
       { path: RouterPath.analyzeResultPage, element: <AnalyzeECGResultPage />},

@@ -16,20 +16,22 @@ export default Layout;
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
 `;
 
 const ContentWrapper = styled.div`
-  width: 100%;
+  width: 430px;
   height: 100%;
   max-width: 600px;
-  background-color: #FFFFFF;
+  background-color: #f4eae0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 2vh;
   box-sizing: border-box;
   overflow: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 그림자 추가 */
-  border-radius: 8px;  /* 모서리를 둥글게 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
