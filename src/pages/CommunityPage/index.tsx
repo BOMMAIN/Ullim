@@ -1,5 +1,5 @@
 const CommunityPage = () => {
-  return <div>CommunityPage</div>;
+  return <div>dsfgklhgf</div>;
 };
 
 export default CommunityPage;
