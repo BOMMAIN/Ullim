@@ -1,22 +1,23 @@
 import '../../index.css';
 import styled from "styled-components";
 
-
 const Login = () => {
   return (
     <Container>
       <Logocontainer>
         <LogoImg
-          src="https://cdn-icons-png.flaticon.com/512/138/138533.png"
+          src="/images/울림로고.png"
           alt="로고"
         />
         <Description>심장질환 커뮤니티</Description>
         <Title>울림</Title>
       </Logocontainer>
-      <KakaoImg
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOTxPc8jpLjbc8VICtkjJy2VTAL8eEI9SRqA&s"
-        alt="카카오로그인이미지"
-      />
+      <KakaoButton>
+        <KakaoImg
+          src="/images/카카오로그인.png"
+          alt="카카오 로그인 버튼"
+        />
+      </KakaoButton>
     </Container>
   );
 };
@@ -24,11 +25,11 @@ const Login = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Container 내 콘텐츠 수직 정렬 */
-  align-items: center; /* Container 내 콘텐츠 수평 정렬 */
+  justify-content: center;
+  align-items: center;
   height: 100vh;
   width: 100%;
-  max-width: 800px; /* 최대 너비 */
+  max-width: 800px;
   margin: 0 auto;
   padding: 30px;
   background-color: #F4EAE0;
@@ -38,14 +39,14 @@ const Container = styled.div`
 const Logocontainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Logocontainer 내부 수직 중앙 정렬 */
-  align-items: center; /* Logocontainer 내부 수평 중앙 정렬 */
-  margin-bottom: 50px; /* 아래 KakaoImg와 간격 조정 */
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
 `;
 
 const LogoImg = styled.img`
   width: 100px;
-  margin-bottom: 20px; /* Title과 간격 추가 */
+  margin-bottom: 20px;
 `;
 
 const Description = styled.p`
@@ -60,10 +61,23 @@ const Title = styled.h1`
   margin-bottom: 20px;
 `;
 
+const KakaoButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    opacity: 0.7; /* 버튼을 호버했을 때 약간 어두워지는 효과 */
+  }
+`;
+
 const KakaoImg = styled.img`
-  width: 200px;
-  border-radius: 10%; /* 모서리 둥글게 */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* 그림자 설정 */
+  width: 370px;
 `;
 
 export default Login;
