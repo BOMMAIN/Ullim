@@ -18,7 +18,7 @@ const UserListItem = () => {
 export default UserListItem;
 
 const Container = styled.div`
-  width: 80%;
+  width: 160px;
   height: 170px;
   display: flex;
   flex-direction: column;
