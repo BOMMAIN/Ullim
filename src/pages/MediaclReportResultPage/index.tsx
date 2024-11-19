@@ -1,8 +1,9 @@
 import React from 'react';
+import '../../index.css';
 
 const MedicalReportResultPage = () => {
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-[#FDF8F6]">
+    <div className="mb-6 w-96 mx-auto">
       {/* Header */}
       <div className="px-4 py-6 border-b border-gray-200">
         <div className="flex justify-between items-center">

@@ -1,13 +1,13 @@
 import React from 'react';
 import '../../index.css';
 
-const AnalyzeResultPage = () => {
+const AnalyzeECGResultPage = () => {
   return (
-    <div className="max-w-md mx-auto bg-[#FDF8F6] min-h-screen">
+    <div className="mb-6 w-96 mx-auto">
       {/* Header */}
       <div className="flex justify-between items-center p-4 border-b">
         <div className="text-lg font-medium">심전도 분석 결과 확인하기</div>
-        <button className="p-2 rounded-full bg-red-500 text-white">
+        <button className="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center">
           <span className="text-xl">×</span>
         </button>
       </div>
@@ -109,4 +109,4 @@ const AnalyzeResultPage = () => {
   );
 };
 
-export default AnalyzeResultPage;
+export default AnalyzeECGResultPage;

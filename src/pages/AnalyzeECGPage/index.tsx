@@ -1,12 +1,12 @@
 import React from 'react';
 import '../../index.css';
 
-const AnalyzePage = () => {
+const AnalyzeECGPage = () => {
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-[#FDF8F6] flex flex-col">
+    <div className="mb-6 w-96 mx-auto">
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center space-y-8 px-4">
-        <h1 className="text-xl font-medium text-center">
+        <h1 className="text-lg font-medium text-center">
           심전도를 분석하는 중입니다...
         </h1>
         
@@ -71,7 +71,7 @@ const AnalyzePage = () => {
   );
 };
 
-export default AnalyzePage;
+export default AnalyzeECGPage;
 
 // Add this to your global CSS
 const styles = `

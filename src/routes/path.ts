@@ -1,3 +1,5 @@
+
+
 export const RouterPath = {
   root: "/",
   communityPage: "/community",
@@ -6,5 +8,6 @@ export const RouterPath = {
   myPage: "/mypage",
   medicalReportResultPage: "/medical-report",
   analyzePage: "/analyze-processing-page",
-  analyzeResultPage: "/analyze-result-page"
+  analyzeResultPage: "/analyze-result-page",
+  analyzeDiagnosisPage: "/analyze-diagnosis"
 };
