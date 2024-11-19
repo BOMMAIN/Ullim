@@ -15,9 +15,9 @@ const Header = () => {
         <IoMdHelpCircle size={20} />
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <FaBell size={30} />
+        <FaBell size={20} />
         <IoPersonSharp
-          size={30}
+          size={20}
           style={{ marginLeft: "8px", cursor: "pointer" }}
           onClick={() => navigate(RouterPath.myPage)}
         />
