@@ -22,6 +22,7 @@ import ChatPage from "@pages/ChatPage";
 import { TempDiagnosisUploadPage } from "@pages/TempDiagnosisUploadPage";
 import Shopping from "@pages/Shopping";
 
+import Record from "@pages/Record";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
       { path: RouterPath.heartlist, element: <HeartList /> },
       { path: RouterPath.postDetailPage, element: <DetailPage /> },
       { path: RouterPath.shopping, element: <Shopping /> },
+      { path: RouterPath.record, element: <Record /> },
       {
         path: RouterPath.medicalReportResultPage,
         element: <MedicalReportResultPage />,

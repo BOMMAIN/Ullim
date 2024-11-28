@@ -19,4 +19,5 @@ export const RouterPath = {
   chatPage: "/lifestyle-chat",
   tempDiagnosisUploadPage: "/temp-upload",
   shopping: "/shopping",
+  record: "/record",
 };
