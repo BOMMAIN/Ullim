@@ -18,6 +18,7 @@ import MedicalReportResultPage from "@pages/MediaclReportResultPage";
 import AnalyzeECGPage from "@pages/AnalyzeECGPage";
 import AnalyzeECGResultPage from "@pages/AnalyzeECGResultPage";
 import AnalyzeDiagnosisPage from "@pages/AnalyzeDiagnosisPage";
+import Record from "@pages/Record";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
       { path: RouterPath.onboarding4, element: <Onboarding4 /> },
       { path: RouterPath.heartlist, element: <HeartList /> },
       { path: RouterPath.postDetailPage, element: <DetailPage /> },
+      { path: RouterPath.record, element: <Record /> },
       {
         path: RouterPath.medicalReportResultPage,
         element: <MedicalReportResultPage />,
