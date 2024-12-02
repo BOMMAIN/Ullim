@@ -18,6 +18,8 @@ import MedicalReportResultPage from "@pages/MediaclReportResultPage";
 import AnalyzeECGPage from "@pages/AnalyzeECGPage";
 import AnalyzeECGResultPage from "@pages/AnalyzeECGResultPage";
 import AnalyzeDiagnosisPage from "@pages/AnalyzeDiagnosisPage";
+import ChatPage from "@pages/ChatPage";
+import { TempDiagnosisUploadPage } from "@pages/TempDiagnosisUploadPage";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,8 @@ const router = createBrowserRouter([
         path: RouterPath.analyzeDiagnosisPage,
         element: <AnalyzeDiagnosisPage />,
       },
+      { path: RouterPath.chatPage, element: <ChatPage/>},
+      { path: RouterPath.tempDiagnosisUploadPage, element: <TempDiagnosisUploadPage/>}, // 임시!!!!!
     ],
   },
 ]);
