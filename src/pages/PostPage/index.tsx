@@ -67,11 +67,12 @@ const Wrapper = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+  margin-top: 60px;
 `;
 
 const Title = styled.h2`
   text-align: start;
-  margin: 30px 10px 0 20px;
+  margin: 0 10px 0 10px;
 `;
 
 const Filter = styled.div`
