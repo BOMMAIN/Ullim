@@ -1,40 +1,40 @@
-import '../../index.css';
+import "../../index.css";
 import styled from "styled-components";
-import { useNavigate } from 'react-router-dom';
-import { RouterPath } from '@routes/path';
-import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { RouterPath } from "@routes/path";
+import { useState } from "react";
 import Menubar from "@components/features/Menubar";
 
 const Shopping = () => {
   // 제품 리스트 정의
   const products = [
     {
-      name: '오메가3 플러스',
-      details: 'EPA/DHA 고함량\n혈행 개선, 중성지방 감소',
-      price: '45,000원',
-      image: '/images/상품1.png',
-      link: 'https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&ssc=tab.nx.all&query=+%EC%B9%BC%EC%8A%98+%EB%A7%88%EA%B7%B8%EB%84%A8&oquery=%EB%B8%94%EB%A3%A8%ED%88%AC%EC%8A%A4+%ED%98%88%EC%95%95+%EC%B8%A1%EC%A0%95%EA%B8%B0&tqi=i0rX6lqVOsCss5z1I30ssssssz0-198827'
+      name: "오메가3 플러스",
+      details: "EPA/DHA 고함량\n혈행 개선, 중성지방 감소",
+      price: "49,900원",
+      image: "/images/상품1.png",
+      link: "https://brand.naver.com/koreaeundanhc/products/9669821031?n_media=27758&n_query=%ED%93%A8%EC%96%B4%EC%95%8C%ED%8B%B0%EC%A7%80%EC%98%A4%EB%A9%94%EA%B0%803&n_rank=1&n_ad_group=grp-a001-01-000000045791465&n_ad=nad-a001-01-000000327538429&n_keyword_id=nkw-a001-01-000006613183912&n_keyword=%ED%93%A8%EC%96%B4%EC%95%8C%ED%8B%B0%EC%A7%80%EC%98%A4%EB%A9%94%EA%B0%803&n_campaign_type=1&n_ad_group_type=1&n_match=1&NaPm=ct%3Dm46um6m8%7Cci%3D0yS0002uuyPBocuEouY%5F%7Ctr%3Dsa%7Chk%3D4519bc8dc3af417af26786f3a3f6a3f42d098e27%7Cnacn%3DLuRqBMgb8lkA",
     },
     {
-      name: '코엔자임 Q10',
-      details: '일본산 고순도\n심장 에너지 생성 지원',
-      price: '38,000원',
-      image: '/images/상품2.png',
-      link: 'https://smartstore.naver.com/buymedi/products/10739831374?NaPm=ct%3Dm441yaqo%7Cci%3D0A80000GVyDB7yB8JvoS%7Ctr%3Dpla%7Chk%3Db7c11969075e236f006bd91e233ea50589d662b6%7Cnacn%3DLuRqBMgb8lkA'
+      name: "코엔자임 Q10",
+      details: "일본산 고순도\n심장 에너지 생성 지원",
+      price: "116,000원",
+      image: "/images/상품2.png",
+      link: " https://brand.naver.com/nutricore/products/9953772226?n_media=27758&n_query=%EC%BD%94%EC%97%94%EC%9E%90%EC%9E%84Q10&n_rank=2&n_ad_group=grp-a001-02-000000038880056&n_ad=nad-a001-02-000000294752058&n_campaign_type=2&n_mall_id=nutricore&n_mall_pid=9953772226&n_ad_group_type=2&n_match=3&NaPm=ct%3Dm46uphg0%7Cci%3D0AK0000UuOPBJUmNh0Yi%7Ctr%3Dpla%7Chk%3D6c34eeb8eb400df3068a607b33221db515eb8120%7Cnacn%3DLuRqBMgb8lkA",
     },
     {
-      name: '혈압 측정기',
-      details: '블루투스 연동\n앱 연동 자동 기록',
-      price: '128,000원',
-      image: '/images/상품3.png',
-      link: 'https://kingchobocoding.tistory.com/57'
+      name: "혈압 측정기",
+      details: "블루투스 연동\n앱 연동 자동 기록",
+      price: "49,800원",
+      image: "/images/상품3.png",
+      link: "https://smartstore.naver.com/buymedi/products/10739831374?NaPm=ct%3Dm46uquts%7Cci%3D0zi0001UuOPByd8k2vlJ%7Ctr%3Dpla%7Chk%3D481a4183bd79913d934781106ce87b09b8ccdd9a%7Cnacn%3DLuRqBMgb8lkA",
     },
     {
-      name: '칼슘 마그네슘',
-      details: '하루 1정\n혈압 관리 영양소',
-      price: '32,000원',
-      image: '/images/상품4.png',
-      link: 'https://wrtn.ai/coding-task'
+      name: "칼슘 마그네슘",
+      details: "하루 1정\n혈압 관리 영양소",
+      price: "29,000원",
+      image: "/images/상품4.png",
+      link: "https://brand.naver.com/apharmhealth/products/5747756364?n_media=27758&n_query=%EC%81%98%EB%9D%A0%EC%95%A4%EA%B5%AD%EB%AF%BC%EC%B9%BC%EB%A7%88%EB%94%94&n_rank=2&n_ad_group=grp-a001-02-000000028286230&n_ad=nad-a001-02-000000192939608&n_campaign_type=2&n_mall_id=apharmhealth&n_mall_pid=5747756364&n_ad_group_type=2&n_match=3&NaPm=ct%3Dm46usqq8%7Cci%3D0yq0003guOPBzlJgD1kN%7Ctr%3Dpla%7Chk%3D7991d065344d0f41c8a4c59557b6b02792d91e41%7Cnacn%3DLuRqBMgb8lkA",
     },
   ];
 
@@ -52,7 +52,12 @@ const Shopping = () => {
                 <ProductInfo>
                   <Price>{product.price}</Price>
                   {/* 버튼에 링크를 추가 */}
-                  <BuyButton as="a" href={product.link} target="_blank" rel="noopener noreferrer">
+                  <BuyButton
+                    as="a"
+                    href={product.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     구매하기
                   </BuyButton>
                 </ProductInfo>
@@ -70,8 +75,8 @@ const Shopping = () => {
         제품 구매 전 읽어보세요
         <ul>
           <li>
-            모든 제품은 전문가 검증을 거쳤습니다. 앱 사용자 대상 특별 할인이 적용됩니다.
-            구매하신 제품은 앱과 연동하여 관리하실 수 있습니다.
+            모든 제품은 전문가 검증을 거쳤습니다. 앱 사용자 대상 특별 할인이
+            적용됩니다. 구매하신 제품은 앱과 연동하여 관리하실 수 있습니다.
           </li>
         </ul>
       </Footer>
@@ -113,7 +118,7 @@ const Header = styled.div`
   text-align: left;
   font-size: 12px;
   color: #666;
-  background-color: #FFFCFC;
+  background-color: #fffcfc;
   border-radius: 8px;
   padding: 10px;
 `;
@@ -138,7 +143,7 @@ const Product = styled.div`
   flex-direction: column; /* 제품 정보를 세로로 배치 */
   align-items: flex-start;
   padding: 20px;
-  border-bottom: 1px solid #EBBFB7;
+  border-bottom: 1px solid #ebbfb7;
   margin-bottom: 10px;
 `;
 
@@ -190,7 +195,7 @@ const BuyButton = styled.button`
   width: 100px;
   height: 40px;
   padding: 8px 16px;
-  background-color: #E87C6C;
+  background-color: #e87c6c;
   color: white;
   border: none;
   border-radius: 4px;
@@ -198,14 +203,14 @@ const BuyButton = styled.button`
   margin-top: 10px;
 
   &:hover {
-    background-color: #FFCE81; /* 호버 시 배경색 변경 */
+    background-color: #ffce81; /* 호버 시 배경색 변경 */
   }
 `;
 
 const Footer = styled.div`
   width: 100%;
   max-width: 768px;
-  margin-top: 20px;
+  margin: 20px 0 40px;
   font-size: 10px;
   color: #666;
   text-align: right;

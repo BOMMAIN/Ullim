@@ -1,17 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
-import '../../index.css';
+import React from "react";
+import styled from "styled-components";
+import "../../index.css";
 import { MdNavigateNext } from "react-icons/md";
+import Menubar from "@components/features/Menubar";
 
 const MyPage = () => {
   return (
     <Container>
       {/* 프로필 영역 */}
       <ProfileContainer>
-        <ProfileImage
-          src="/images/프로필사진.jpg"
-          alt="Profile"
-        />
+        <ProfileImage src="/images/프로필사진.jpg" alt="Profile" />
         <ProfileInfo>
           <ProfileName>닉네임</ProfileName>
           <Logout>
@@ -29,6 +27,7 @@ const MyPage = () => {
         <MenuItem title="북마크한 글 모아 보기" />
         <MenuItem title="환경설정" />
       </MenuContainer>
+      <Menubar />
     </Container>
   );
 };
@@ -47,7 +46,7 @@ const MenuItem = ({ title }: MenuItemProps) => (
 );
 
 const Container = styled.div`
-  background-color: #F4EAE0;
+  background-color: #f4eae0;
   height: 100vh;
   width: 380px;
   padding: 20px;
@@ -83,7 +82,7 @@ const ProfileName = styled.span`
 
 const Logout = styled.div`
   font-size: 14px;
-  color: #E87C6C;
+  color: #e87c6c;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -105,7 +104,7 @@ const MenuItemContainer = styled.div`
 
 const MenuIcon = styled.span`
   font-size: 20px;
-  color: #E87C6C;
+  color: #e87c6c;
 `;
 
 const Bar = styled.hr`
