@@ -20,6 +20,8 @@ import AnalyzeECGResultPage from "@pages/AnalyzeECGResultPage";
 import AnalyzeDiagnosisPage from "@pages/AnalyzeDiagnosisPage";
 import ChatPage from "@pages/ChatPage";
 import { TempDiagnosisUploadPage } from "@pages/TempDiagnosisUploadPage";
+import Shopping from "@pages/Shopping";
+
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,7 @@ const router = createBrowserRouter([
       { path: RouterPath.onboarding4, element: <Onboarding4 /> },
       { path: RouterPath.heartlist, element: <HeartList /> },
       { path: RouterPath.postDetailPage, element: <DetailPage /> },
+      { path: RouterPath.shopping, element: <Shopping /> },
       {
         path: RouterPath.medicalReportResultPage,
         element: <MedicalReportResultPage />,

@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { RouterPath } from '@routes/path';
 
 const Onboarding4 = () => {
+  const navigate = useNavigate();
   return (
-    <Container>
-      <PreviousButton>이전으로</PreviousButton>      
+    <Container>   
       <Image
         src="/images/온보딩4.png"
         alt="쉽게 이해하는 심전도"
@@ -13,7 +15,7 @@ const Onboarding4 = () => {
       <Description>
         심전도 데이터를 분석하고, 쉽게 이해할 수 있는 해설을 제공합니다.
       </Description>
-      <NextButton>진짜 시작하기!! 렛츠꼬! </NextButton> {/* 시작하기 버튼 추가 */}
+      <NextButton onClick={() => navigate(RouterPath.login)}>진짜 시작하기!! 렛츠꼬! </NextButton> {/* 시작하기 버튼 추가 */}
     </Container>
   );
 };
@@ -68,26 +70,5 @@ const NextButton = styled.button`
     background-color: #f45671; /* 마우스 호버 시 배경색 변경 */
   }
 `;
-
-const PreviousButton = styled.button`
-  position: absolute; /* 컨테이너 내에서 절대 위치 설정 */
-  top: 20px; /* 컨테이너 상단으로부터의 거리 설정 */
-  left: 50%; /* 컨테이너의 중간에 위치 */
-  transform: translateX(-50%); /* 버튼을 정확히 중앙으로 이동 */
-  width: 100px; /* 버튼의 너비 설정 */
-  height: 50px; /* 버튼의 높이 설정 */
-  border-radius: 25px; /* 버튼의 모서리를 둥글게 설정 */
-  background-color: #FF9884; /* 버튼의 배경색 설정 */
-  color: white; /* 버튼의 텍스트 색상 설정 */
-  border: none; /* 버튼의 기본 테두리 제거 */
-  font-size: 16px; /* 버튼 텍스트의 크기 설정 */
-  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
-
-  /* 호버 시 배경색 변경 효과 */
-  &:hover {
-    background-color: #FFCE81; /* 호버 시 배경색 변경 */
-  }
-`;
-
 
 export default Onboarding4;

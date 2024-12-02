@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { RouterPath } from '@routes/path';
 
 const Onboarding2 = () => {
+  const navigate = useNavigate();
   return (
     <Container>
-      <PreviousButton>이전으로</PreviousButton> 
+      <PreviousButton onClick={() => navigate(RouterPath.login)}>건너뛰기</PreviousButton> 
       <Image
         src="/images/온보딩2.png"
         alt="쉽게 이해하는 심전도"
@@ -13,7 +16,7 @@ const Onboarding2 = () => {
       <Description>
         심전도 데이터를 분석하고, 쉽게 이해할 수 있는 해설을 제공합니다.
       </Description>
-      <NextButton>다음</NextButton> {/* 시작하기 버튼 추가 */}
+      <NextButton onClick={() => navigate(RouterPath.onboarding3)}>다음</NextButton> {/* 시작하기 버튼 추가 */}
     </Container>
   );
 };
