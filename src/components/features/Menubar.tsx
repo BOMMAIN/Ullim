@@ -15,26 +15,20 @@ const Menubar = () => {
         <IoHome size={25} />
         <MenubarTitle>커뮤니티</MenubarTitle>
       </MenubarItem>
-      <MenubarItem>
-        <IoChatboxEllipses
-          size={25}
-          onClick={() => navigate(RouterPath.communityPage)}
-        />
+      <MenubarItem onClick={() => navigate(RouterPath.communityPage)}>
+        <IoChatboxEllipses size={25} />
         <MenubarTitle>챗봇</MenubarTitle>
       </MenubarItem>
-      <MenubarItem>
-        <FaNoteSticky size={25} onClick={() => navigate(RouterPath.record)} />
+      <MenubarItem onClick={() => navigate(RouterPath.record)}>
+        <FaNoteSticky size={25} />
         <MenubarTitle>기록</MenubarTitle>
       </MenubarItem>
-      <MenubarItem>
-        <MdLocalGroceryStore
-          size={25}
-          onClick={() => navigate(RouterPath.shopping)}
-        />
+      <MenubarItem onClick={() => navigate(RouterPath.shopping)}>
+        <MdLocalGroceryStore size={25} />
         <MenubarTitle>스토어</MenubarTitle>
       </MenubarItem>
-      <MenubarItem>
-        <IoPersonSharp size={25} onClick={() => navigate(RouterPath.myPage)} />
+      <MenubarItem onClick={() => navigate(RouterPath.myPage)}>
+        <IoPersonSharp size={25} />
         <MenubarTitle>마이페이지</MenubarTitle>
       </MenubarItem>
     </Wrapper>
