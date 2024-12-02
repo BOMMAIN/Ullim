@@ -43,20 +43,25 @@ const Layout = () => {
 export default Layout;
 
 const Wrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
-  align-items: center; /* 수직 가운데 정렬 */
   width: 100vw;
   height: 100vh;
-  overflow: hidden; /* 스크롤바 숨기기 */
-  background-color: #f4eae0;
 `;
 
 const ContentWrapper = styled.div`
-  width: 375px; /* 고정된 너비 */
-  height: 812px; /* 고정된 높이 */
-  background-color: #ffffff;
+  width: 430px;
+  height: 100%;
+  max-width: 600px;
+  background-color: #f4eae0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  align-items: center;
+  padding: 2vh;
+  box-sizing: border-box;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
