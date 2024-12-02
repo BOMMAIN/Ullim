@@ -184,7 +184,7 @@ const AnalyzeECGResultPage = () => {
 
       <S.ECGImages>
         <S.ECGGroup>
-          <S.ECGLinedImage src="/images/ECG_point.png'" />
+          <S.ECGLinedImage src="/images/ECG_point.png" />
         </S.ECGGroup>
       </S.ECGImages>
 
