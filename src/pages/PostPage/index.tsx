@@ -69,7 +69,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  margin-top: 60px;
+  margin: 60px 0 45px;
 `;
 
 const Title = styled.h2`
@@ -88,7 +88,7 @@ const Filter = styled.div`
 `;
 
 const Contents = styled.div`
-  padding: 15px 10px;
+  padding: 15px 10px 0;
   height: 100%;
   width: 100%;
   overflow-y: scroll;

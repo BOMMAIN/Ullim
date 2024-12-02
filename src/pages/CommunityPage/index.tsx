@@ -89,7 +89,7 @@ const Wrapper = styled.div`
   height: 100vh;
   padding-top: 10px;
   overflow: hidden;
-  margin-top: 60px;
+  margin: 40px 0 40px;
 `;
 
 const Content = styled.div`
@@ -128,7 +128,7 @@ const UserListContainer = styled.div`
 
 const StyledLink = styled(Link)`
   position: absolute;
-  bottom: 55px;
+  bottom: 20px;
   right: 20px;
   display: flex;
   align-items: center;
