@@ -21,8 +21,6 @@ import ChatPage from "@pages/ChatPage";
 import { TempDiagnosisUploadPage } from "@pages/TempDiagnosisUploadPage";
 import Shopping from "@pages/Shopping";
 import Record from "@pages/Record";
-import Shopping from "@pages/Shopping";
-import Record from "@pages/Record";
 
 const router = createBrowserRouter([
   {
