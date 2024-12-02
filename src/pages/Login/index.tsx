@@ -1,7 +1,32 @@
 import '../../index.css';
 import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
+import { RouterPath } from '@routes/path';
+import { useState } from 'react';
+
 
 const Login = () => {
+  const navigate = useNavigate();
+  
+  // 상태 관리
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleLogin = () => {
+    // 아이디와 비밀번호 검사
+    if (id === 'bomain' && password === '1234') {
+      navigate(RouterPath.onboarding1);
+    } else {
+      setError('아이디 또는 비밀번호가 잘못되었습니다.');
+    }
+  };
+
+  const handleSignUp = () => {
+    // 회원가입 처리 로직
+    alert("회원가입 버튼 클릭!");
+  };
+
   return (
     <Container>
       <Logocontainer>
@@ -12,12 +37,35 @@ const Login = () => {
         <Description>심장질환 커뮤니티</Description>
         <Title>울림</Title>
       </Logocontainer>
-      <KakaoButton>
-        <KakaoImg
-          src="/images/카카오로그인.png"
-          alt="카카오 로그인 버튼"
+      <Form>
+        {/* 아이디 입력 */}
+        <Input
+          type="text"
+          placeholder="아이디"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
         />
-      </KakaoButton>
+
+        {/* 비밀번호 입력 */}
+        <Input
+          type="password"
+          placeholder="비밀번호"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        {/* 에러 메시지 출력 */}
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+
+        {/* 로그인 버튼 */}
+        <LoginButton onClick={handleLogin}>로그인</LoginButton>
+
+        {/* 회원가입 섹션 */}
+        <SignUpContainer>
+          <Description2>울림이 처음이신가요?</Description2>
+          <SignUpButton onClick={handleSignUp}>회원가입</SignUpButton>
+        </SignUpContainer>
+      </Form>
     </Container>
   );
 };
@@ -61,23 +109,72 @@ const Title = styled.h1`
   margin-bottom: 20px;
 `;
 
-const KakaoButton = styled.button`
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  outline: none;
+const Form = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+`;
 
-  &:hover {
-    opacity: 0.7; /* 버튼을 호버했을 때 약간 어두워지는 효과 */
+const Input = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: #555;
   }
 `;
 
-const KakaoImg = styled.img`
-  width: 370px;
+const LoginButton = styled.button`
+  width: 100%;
+  padding: 10px;
+  background-color: #E87C6C;
+  border-radius: 25px; /* 둥근 모서리 설정 */
+  color: #fff;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px; /* 회원가입 버튼과의 간격 */
+
+  &:hover {
+    background-color: #FFCE81;
+  }
+`;
+
+const SignUpButton = styled.button`
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  color: #E87C6C;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    color: black;
+  }
+`;
+
+const Description2 = styled.div`
+  font-size: 13px;
+  color: #736f6b;
+  margin-top: 10px;
+`;
+
+const SignUpContainer = styled.div``;
+
+const ErrorMessage = styled.p`
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
 `;
 
 export default Login;

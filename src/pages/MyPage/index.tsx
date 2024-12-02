@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import '../../index.css';
+import { MdNavigateNext } from "react-icons/md";
 
 const MyPage = () => {
   return (
@@ -8,12 +9,15 @@ const MyPage = () => {
       {/* 프로필 영역 */}
       <ProfileContainer>
         <ProfileImage
-          src="https://via.placeholder.com/50"
+          src="/images/프로필사진.jpg"
           alt="Profile"
         />
         <ProfileInfo>
           <ProfileName>닉네임</ProfileName>
-          <Logout>로그아웃 &gt;</Logout>
+          <Logout>
+            로그아웃
+            <MdNavigateNext />
+          </Logout>
         </ProfileInfo>
       </ProfileContainer>
       <Bar />
@@ -22,7 +26,7 @@ const MyPage = () => {
         <MenuItem title="심전도 분석 결과 기록 확인하기" />
         <MenuItem title="회원정보 수정하기" />
         <MenuItem title="작성한 글 모아보기" />
-        <MenuItem title="북마크한 글 모아v 보기" />
+        <MenuItem title="북마크한 글 모아 보기" />
         <MenuItem title="환경설정" />
       </MenuContainer>
     </Container>
@@ -36,13 +40,16 @@ type MenuItemProps = {
 const MenuItem = ({ title }: MenuItemProps) => (
   <MenuItemContainer>
     <span>{title}</span>
-    <MenuIcon>&gt;</MenuIcon>
+    <MenuIcon>
+      <MdNavigateNext />
+    </MenuIcon>
   </MenuItemContainer>
 );
 
 const Container = styled.div`
   background-color: #F4EAE0;
   height: 100vh;
+  width: 380px;
   padding: 20px;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
@@ -53,7 +60,7 @@ const ProfileContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   padding: 10px 0;
-  `;
+`;
 
 const ProfileImage = styled.img`
   width: 50px;
@@ -66,6 +73,7 @@ const ProfileInfo = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  align-items: center;
 `;
 
 const ProfileName = styled.span`
@@ -73,10 +81,13 @@ const ProfileName = styled.span`
   font-weight: bold;
 `;
 
-const Logout = styled.span`
+const Logout = styled.div`
   font-size: 14px;
   color: #E87C6C;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px; /* 텍스트와 아이콘 간격 */
 `;
 
 const MenuContainer = styled.div`
@@ -93,15 +104,15 @@ const MenuItemContainer = styled.div`
 `;
 
 const MenuIcon = styled.span`
-  font-size: 18px;
+  font-size: 20px;
   color: #E87C6C;
 `;
 
 const Bar = styled.hr`
-  height: 2px; /* 선의 두께 설정 */
-  border: none; /* 기본 테두리 제거 */
-  background-color: #fff; /* 선의 색상 설정 */
-  margin: 20px 0; /* 선 위아래 여백 설정 */
+  height: 2px;
+  border: none;
+  background-color: #fff;
+  margin: 20px 0;
 `;
 
 export default MyPage;

@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom';
+import { RouterPath } from '@routes/path';
 import React from 'react';
 import styled from 'styled-components';
 
 // Onboarding1 컴포넌트 정의
 const Onboarding1 = () => {
+  const navigate = useNavigate();
   return (
     <Container>
       <Image
@@ -13,7 +16,7 @@ const Onboarding1 = () => {
         심장질환 커뮤니티
       </Description>
       <Title>울림</Title>
-      <NextButton>시작하기</NextButton> {/* 시작하기 버튼 추가 */}
+      <NextButton onClick={() => navigate(RouterPath.onboarding2)}>시작하기</NextButton> {/* 시작하기 버튼 추가 */}
     </Container>
   );
 };
@@ -32,7 +35,7 @@ const Container = styled.div`
 
 // 이미지 스타일 정의
 const Image = styled.img`
-  width: 140px; /* 이미지 너비 설정 */
+  width: 100px; /* 이미지 너비 설정 */
   margin-bottom: 20px; /* 이미지와 설명 사이 간격 */
 `;
 
