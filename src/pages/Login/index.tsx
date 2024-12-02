@@ -145,7 +145,7 @@ const LoginButton = styled.button`
   margin-bottom: 10px; /* 회원가입 버튼과의 간격 */
 
   &:hover {
-    background-color: #FFCE81;
+    background-color: #e87c6c70;
   }
 `;
 
