@@ -14,6 +14,7 @@ const Layout = () => {
 export default Layout;
 
 const Wrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   width: 100vw;
