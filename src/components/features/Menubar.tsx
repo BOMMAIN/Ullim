@@ -15,7 +15,7 @@ const Menubar = () => {
         <IoHome size={25} />
         <MenubarTitle>커뮤니티</MenubarTitle>
       </MenubarItem>
-      <MenubarItem onClick={() => navigate(RouterPath.communityPage)}>
+      <MenubarItem onClick={() => navigate(RouterPath.chatPage)}>
         <IoChatboxEllipses size={25} />
         <MenubarTitle>챗봇</MenubarTitle>
       </MenubarItem>

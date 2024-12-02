@@ -4,6 +4,7 @@ import { ChatService } from '../../api/chatServices';
 import ExerciseAnalysis from '../../components/ECGResults/ExerciseAnalysis';
 import DietAnalysis from '../../components/ECGResults/DietAnalysis';
 import { v4 as uuidv4 } from 'uuid';
+import Menubar from "@components/features/Menubar";
 
 interface BaseMessage {
     id: string;
@@ -330,7 +331,10 @@ const ChatPage = () => {
           </S.SendButton>
         </S.ChatInputForChatPage>
       </S.ChatContainerForChatPage>
+
+      <Menubar/>
     </S.ContainerForChatPage>
+    
   );
   
 };
