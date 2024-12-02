@@ -47,7 +47,7 @@ const Wrapper = styled.div`
   position: absolute;
   z-index: 1000;
   width: 430px;
-  height: 60px;
+  height: 50px;
   bottom: 0;
   display: flex;
   justify-content: space-between;
