@@ -1,13 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 import '../../index.css';
-import { MdNavigateNext } from "react-icons/md";
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
 const HeartList = () => {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1); // 이전 페이지로 이동
+  };
+
   return (
     <Container>
       <br></br>
-      <Title>심전도 분석 결과 기록</Title>
+      <Header>
+        <PrevButton onClick={goBack}>
+          <MdNavigateBefore />
+        </PrevButton>
+        <Title>심전도 분석 결과 기록</Title>
+      </Header>
       <Bar />
       <ListContainer>
         <List>
@@ -34,21 +46,39 @@ const HeartList = () => {
       <CheckButton>
         검사하기
       </CheckButton>
-      
     </Container>
   );
 };
 
-const Bar = styled.hr`
-  height: 2px; 
-  border: none; 
-  margin: 20px 0; 
+const Header = styled.div`
+  display: flex;
+  align-items: center; /* 세로 가운데 정렬 */
+  justify-content: center; /* 기본적으로 가운데 정렬 */
+
+  position: relative; /* PrevButton을 정확히 왼쪽에 위치시키기 위해 사용 */
+`;
+
+const PrevButton = styled.button`
+  position: absolute;
+  left: 0;
+  font-size: 25px;
+  color: #E87C6C;
+  background: none;
+  border: none;
+  cursor: pointer;
 `;
 
 const Title = styled.h2`
   font-size: 22px;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin: 0;
+`;
+
+const Bar = styled.hr`
+  height: 1px; 
+  background-color : #e87c6c70; 
+  border: none;
+  margin: 30px 0; 
 `;
 
 const Container = styled.div`
@@ -111,7 +141,7 @@ const CheckButton = styled.button`
 
   /* 호버 효과 추가 */
   &:hover {
-    background-color: #e87c6c70; /* 마우스 호버 시 배경색 변경 */
+    background-color: #e87c6c70 /* 마우스 호버 시 배경색 변경 */
   }
 `;
 
