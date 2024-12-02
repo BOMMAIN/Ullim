@@ -16,7 +16,7 @@ const Login = () => {
   const handleLogin = () => {
     // 아이디와 비밀번호 검사
     if (id === 'bomain' && password === '1234') {
-      navigate(RouterPath.onboarding1);
+      navigate(RouterPath.communityPage);
     } else {
       setError('아이디 또는 비밀번호가 잘못되었습니다.');
     }

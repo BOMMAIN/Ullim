@@ -102,7 +102,7 @@ const Content = styled.div`
 const FilterContainer = styled.div`
   display: flex;
   align-items: center;
-  margin: 5px 0 5px 10px;
+  margin: 5px 0;
   gap: 15px;
   overflow-x: scroll;
   white-space: nowrap;
