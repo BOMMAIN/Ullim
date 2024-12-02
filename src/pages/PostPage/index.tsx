@@ -5,6 +5,7 @@ import { useState } from "react";
 import { PiLineVertical } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { RouterPath } from "@routes/path";
+import Menubar from "@components/features/Menubar";
 
 const PostPage = () => {
   type FilterType = "view" | "latest";
@@ -56,6 +57,7 @@ const PostPage = () => {
           </Link>
         </Contents>
       </Wrapper>
+      <Menubar />
     </>
   );
 };

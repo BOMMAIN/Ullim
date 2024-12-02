@@ -5,6 +5,7 @@ import UserListItem from "@components/CommunityPage/UserListItem";
 import { FaPen } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { RouterPath } from "@routes/path";
+import Menubar from "@components/features/Menubar";
 
 const CommunityPage = () => {
   return (
@@ -73,6 +74,7 @@ const CommunityPage = () => {
           <FaPen /> 글쓰기
         </StyledLink>
       </Wrapper>
+      <Menubar />
     </>
   );
 };
@@ -126,7 +128,7 @@ const UserListContainer = styled.div`
 
 const StyledLink = styled(Link)`
   position: absolute;
-  bottom: 20px;
+  bottom: 55px;
   right: 20px;
   display: flex;
   align-items: center;
