@@ -71,7 +71,8 @@ const Wrapper = styled.div`
 const Content = styled.div`
   width: 100%;
   border-radius: 8px;
-  padding: 20px 20px 30px;
+  margin-top: 60px;
+  padding: 0 20px 30px;
 `;
 
 const PostHeader = styled.div`

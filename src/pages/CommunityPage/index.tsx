@@ -87,6 +87,7 @@ const Wrapper = styled.div`
   height: 100vh;
   padding-top: 10px;
   overflow: hidden;
+  margin-top: 60px;
 `;
 
 const Content = styled.div`
