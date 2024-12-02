@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import { RouterPath } from '@routes/path';
 import { useState } from 'react';
+import Menubar from "@components/features/Menubar";
 
 const Shopping = () => {
   // 제품 리스트 정의
@@ -74,6 +75,8 @@ const Shopping = () => {
           </li>
         </ul>
       </Footer>
+
+      <Menubar />
     </Container>
   );
 };
@@ -85,12 +88,12 @@ const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   text-align: center;
-  min-height: 100vh;
+  min-height: 100vh; /* 화면 전체 높이를 차지 */
   padding: 20px;
   position: relative;
   overflow-y: auto;
   &::-webkit-scrollbar {
-	  display:none /* Chrome , Safari , Opera */
+    display: none; /* 스크롤바 숨김 */
   }
 `;
 
