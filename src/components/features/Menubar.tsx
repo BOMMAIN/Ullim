@@ -44,11 +44,14 @@ const Menubar = () => {
 export default Menubar;
 
 const Wrapper = styled.div`
-  position: absolute;
+  position: fixed; /* 화면의 가장 아래 고정 */
   z-index: 1000;
-  width: 430px;
+  width: 430px; /* 부모 컨테이너에 맞게 확장 */
+  max-width: 768px; /* 최대 너비 설정 */
   height: 50px;
   bottom: 0;
+  left: 50%; /* 중앙 정렬을 위해 */
+  transform: translateX(-50%); /* 중앙 정렬 */
   display: flex;
   justify-content: space-between;
   align-items: center;

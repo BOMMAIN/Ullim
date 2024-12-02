@@ -1,5 +1,5 @@
 export const RouterPath = {
-  root: "/",
+  onboarding1: "/",
   communityPage: "/community",
   postPage: "/community/post",
   postDetailPage: "/community/post/detail",
@@ -7,7 +7,6 @@ export const RouterPath = {
   myPage: "/mypage",
   login: "/login",
   signup: "/signup",
-  onboarding1: "/onboarding1",
   onboarding2: "/onboarding2",
   onboarding3: "/onboarding3",
   onboarding4: "/onboarding4",
