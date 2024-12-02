@@ -29,7 +29,7 @@ const Menubar = () => {
       <MenubarItem>
         <MdLocalGroceryStore
           size={25}
-          onClick={() => navigate(RouterPath.communityPage)}
+          onClick={() => navigate(RouterPath.shopping)}
         />
         <MenubarTitle>스토어</MenubarTitle>
       </MenubarItem>

@@ -16,6 +16,6 @@ export const RouterPath = {
   analyzePage: "/analyze-processing-page",
   analyzeResultPage: "/analyze-result-page",
   analyzeDiagnosisPage: "/analyze-diagnosis",
-  shopping: "/shopping"
+  shopping: "/shopping",
   record: "/record",
 };
