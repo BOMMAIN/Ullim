@@ -3,8 +3,11 @@ import styled from "styled-components";
 import "../../index.css";
 import { MdNavigateNext } from "react-icons/md";
 import Menubar from "@components/features/Menubar";
+import { useNavigate } from 'react-router-dom';
+import { RouterPath } from '@routes/path';
 
 const MyPage = () => {
+  const navigate = useNavigate();
   return (
     <Container>
       {/* 프로필 영역 */}
@@ -12,7 +15,7 @@ const MyPage = () => {
         <ProfileImage src="/images/프로필사진.jpg" alt="Profile" />
         <ProfileInfo>
           <ProfileName>닉네임</ProfileName>
-          <Logout>
+          <Logout onClick={() => navigate(RouterPath.login)}>
             로그아웃
             <MdNavigateNext />
           </Logout>
@@ -21,11 +24,11 @@ const MyPage = () => {
       <Bar />
       {/* 메뉴 리스트 */}
       <MenuContainer>
-        <MenuItem title="심전도 분석 결과 기록 확인하기" />
-        <MenuItem title="회원정보 수정하기" />
-        <MenuItem title="작성한 글 모아보기" />
-        <MenuItem title="북마크한 글 모아 보기" />
-        <MenuItem title="환경설정" />
+        <MenuItem title="심전도 분석 결과 기록 확인하기" onclick={() => navigate(RouterPath.heartlist)}/>
+        <MenuItem title="회원정보 수정하기"  onclick={() => navigate(RouterPath.heartlist)}/>
+        <MenuItem title="작성한 글 모아보기"  onclick={() => navigate(RouterPath.heartlist)}/>
+        <MenuItem title="북마크한 글 모아 보기"  onclick={() => navigate(RouterPath.heartlist)}/>
+        <MenuItem title="환경설정"  onclick={() => navigate(RouterPath.heartlist)}/>
       </MenuContainer>
       <Menubar />
     </Container>
@@ -34,10 +37,11 @@ const MyPage = () => {
 
 type MenuItemProps = {
   title: string;
+  onclick: () => void;
 };
 
-const MenuItem = ({ title }: MenuItemProps) => (
-  <MenuItemContainer>
+const MenuItem = ({ title, onclick }: MenuItemProps) => (
+  <MenuItemContainer onClick={onclick}>
     <span>{title}</span>
     <MenuIcon>
       <MdNavigateNext />
@@ -100,6 +104,7 @@ const MenuItemContainer = styled.div`
   padding: 25px 0;
   font-size: 16px;
   color: #333;
+  cursor: pointer;
 `;
 
 const MenuIcon = styled.span`
