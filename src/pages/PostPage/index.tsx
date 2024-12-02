@@ -5,6 +5,7 @@ import { useState } from "react";
 import { PiLineVertical } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { RouterPath } from "@routes/path";
+import Menubar from "@components/features/Menubar";
 
 const PostPage = () => {
   type FilterType = "view" | "latest";
@@ -56,6 +57,7 @@ const PostPage = () => {
           </Link>
         </Contents>
       </Wrapper>
+      <Menubar />
     </>
   );
 };
@@ -67,11 +69,12 @@ const Wrapper = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+  margin-top: 60px;
 `;
 
 const Title = styled.h2`
   text-align: start;
-  margin: 30px 10px 0 20px;
+  margin: 0 10px 0 10px;
 `;
 
 const Filter = styled.div`
