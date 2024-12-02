@@ -1,19 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { RouterPath } from '@routes/path';
 
 const Onboarding4 = () => {
+  const navigate = useNavigate();
   return (
-    <Container>
-      <PreviousButton>이전으로</PreviousButton>      
+    <Container>   
       <Image
-        src="Ullim\src\img\온보딩4.png"
+        src="/images/온보딩4.png"
         alt="쉽게 이해하는 심전도"
       />
       <Title>쉽게 이해하는 심전도 분석</Title>
       <Description>
         심전도 데이터를 분석하고, 쉽게 이해할 수 있는 해설을 제공합니다.
       </Description>
-      <NextButton>다음</NextButton> {/* 시작하기 버튼 추가 */}
+      <NextButton onClick={() => navigate(RouterPath.login)}>진짜 시작하기!! 렛츠꼬! </NextButton> {/* 시작하기 버튼 추가 */}
     </Container>
   );
 };
@@ -54,7 +56,7 @@ const NextButton = styled.button`
   bottom: 20px; /* 컨테이너 아래쪽 여백 20px */
   left: 50%; /* 수평 중앙 정렬을 위해 */
   transform: translateX(-50%); /* 수평 중앙 정렬 조정 */
-  width: 500px; /* 가로로 기다란 버튼 너비 */
+  width: 350px; /* 가로로 기다란 버튼 너비 */
   height: 50px; /* 버튼 높이 설정 */
   border-radius: 25px; /* 둥근 모서리 설정 */
   background-color: #E87C6C; /* 버튼 배경색 설정 */
@@ -68,26 +70,5 @@ const NextButton = styled.button`
     background-color: #f45671; /* 마우스 호버 시 배경색 변경 */
   }
 `;
-
-const PreviousButton = styled.button`
-  position: absolute; /* 절대 위치 설정 */
-  top: 20px; /* 컨테이너 상단으로 위치 설정 */
-  left: 42%; /* 수평 중앙 정렬을 위해 */
-  transform: translateX(-50%); /* 수평 중앙 정렬 조정 */
-  width: 100px; /* 버튼 너비 설정 */
-  height: 50px; /* 버튼 높이 설정 */
-  border-radius: 25px; /* 둥근 모서리 설정 */
-  background-color: #E87C6C; /* 버튼 배경색 설정 */
-  color: white; /* 버튼 글자색 설정 */
-  border: none; /* 기본 테두리 없애기 */
-  font-size: 16px; /* 버튼 글씨 크기 설정 */
-  cursor: pointer; /* 포인터 커서 설정 */
-
-  /* 호버 효과 추가 */
-  &:hover {
-    background-color: #f45671; /* 마우스 호버 시 배경색 변경 */
-  }
-`;
-
 
 export default Onboarding4;

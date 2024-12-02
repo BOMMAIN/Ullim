@@ -1,19 +1,22 @@
+import { useNavigate } from 'react-router-dom';
+import { RouterPath } from '@routes/path';
 import React from 'react';
 import styled from 'styled-components';
 
 // Onboarding1 컴포넌트 정의
 const Onboarding1 = () => {
+  const navigate = useNavigate();
   return (
     <Container>
       <Image
-        src="https://png.pngtree.com/png-vector/20220428/ourmid/pngtree-smooth-glossy-heart-vector-file-ai-and-png-png-image_4557871.png"
+        src="/images/울림로고.png"
         alt="쉽게 이해하는 심전도"
       />
       <Description>
         심장질환 커뮤니티
       </Description>
       <Title>울림</Title>
-      <NextButton>시작하기</NextButton> {/* 시작하기 버튼 추가 */}
+      <NextButton onClick={() => navigate(RouterPath.onboarding2)}>시작하기</NextButton> {/* 시작하기 버튼 추가 */}
     </Container>
   );
 };
@@ -32,7 +35,7 @@ const Container = styled.div`
 
 // 이미지 스타일 정의
 const Image = styled.img`
-  width: 300px; /* 이미지 너비 설정 */
+  width: 100px; /* 이미지 너비 설정 */
   margin-bottom: 20px; /* 이미지와 설명 사이 간격 */
 `;
 
@@ -56,7 +59,7 @@ const NextButton = styled.button`
   bottom: 20px; /* 컨테이너 아래쪽 여백 20px */
   left: 50%; /* 수평 중앙 정렬을 위해 */
   transform: translateX(-50%); /* 수평 중앙 정렬 조정 */
-  width: 500px; /* 가로로 기다란 버튼 너비 */
+  width: 350px; /* 가로로 기다란 버튼 너비 */
   height: 50px; /* 버튼 높이 설정 */
   border-radius: 25px; /* 둥근 모서리 설정 */
   background-color: #E87C6C; /* 버튼 배경색 설정 */
