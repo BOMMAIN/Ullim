@@ -42,7 +42,7 @@ const Wrapper = styled.div`
   z-index: 1000;
   width: 430px; /* 부모 컨테이너에 맞게 확장 */
   max-width: 768px; /* 최대 너비 설정 */
-  height: 45px;
+  height: 50px;
   bottom: 0;
   left: 50%; /* 중앙 정렬을 위해 */
   transform: translateX(-50%); /* 중앙 정렬 */

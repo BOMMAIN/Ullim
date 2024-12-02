@@ -57,7 +57,7 @@ const Description = styled.p`
 // 버튼 스타일 정의
 const NextButton = styled.button`
   position: absolute; /* 절대 위치 설정 */
-  bottom: 20px; /* 컨테이너 아래쪽 여백 20px */
+  bottom: 60px; /* 컨테이너 아래쪽 여백 20px */
   left: 50%; /* 수평 중앙 정렬을 위해 */
   transform: translateX(-50%); /* 수평 중앙 정렬 조정 */
   width: 350px; /* 가로로 기다란 버튼 너비 */
@@ -71,28 +71,24 @@ const NextButton = styled.button`
 
   /* 호버 효과 추가 */
   &:hover {
-    background-color: #FFCE81; /* 마우스 호버 시 배경색 변경 */
+    background-color: #e87c6c70; /* 마우스 호버 시 배경색 변경 */
   }
 `;
 
 const PreviousButton = styled.button`
   position: absolute; /* 컨테이너 내에서 절대 위치 설정 */
-  top: 20px; /* 컨테이너 상단으로부터의 거리 설정 */
+  bottom: 25px; /* 컨테이너 상단으로부터의 거리 설정 */
   left: 50%; /* 컨테이너의 중간에 위치 */
   transform: translateX(-50%); /* 버튼을 정확히 중앙으로 이동 */
-  width: 100px; /* 버튼의 너비 설정 */
-  height: 50px; /* 버튼의 높이 설정 */
-  border-radius: 25px; /* 버튼의 모서리를 둥글게 설정 */
-  background-color: #FF9884; /* 버튼의 배경색 설정 */
-  color: white; /* 버튼의 텍스트 색상 설정 */
+  color: #E87C6C; /* 버튼의 텍스트 색상 설정 */
   border: none; /* 버튼의 기본 테두리 제거 */
   font-size: 16px; /* 버튼 텍스트의 크기 설정 */
+  font-weight : bold;
   cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 
   /* 호버 시 배경색 변경 효과 */
   &:hover {
-    background-color: #FFCE81; /* 호버 시 배경색 변경 */
+    color: #a75c51; /* 호버 시 배경색 변경 */
   }
 `;
-
 export default Onboarding3;
