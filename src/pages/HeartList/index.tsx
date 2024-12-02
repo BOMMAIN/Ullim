@@ -34,6 +34,7 @@ const HeartList = () => {
       <CheckButton>
         검사하기
       </CheckButton>
+      
     </Container>
   );
 };
@@ -110,7 +111,7 @@ const CheckButton = styled.button`
 
   /* 호버 효과 추가 */
   &:hover {
-    background-color: #f45671; /* 마우스 호버 시 배경색 변경 */
+    background-color: #FFCE81; /* 마우스 호버 시 배경색 변경 */
   }
 `;
 

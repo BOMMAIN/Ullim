@@ -345,7 +345,7 @@
     text-decoration: underline;
 
     &:hover {
-      color: #f45671;
+      color: #FFCE81;
     }
   `;
 
@@ -372,7 +372,7 @@
     margin-bottom: 30px;  // 여기에 여백 추가
     
     &:hover {
-      background-color: #f45671;
+      background-color: #FFCE81;
     }
   `;
 
