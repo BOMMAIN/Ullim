@@ -71,7 +71,7 @@ const NextButton = styled.button`
 
   /* 호버 효과 추가 */
   &:hover {
-    background-color: #FFCE81; /* 마우스 호버 시 배경색 변경 */
+    background-color: #e87c6c70; /* 마우스 호버 시 배경색 변경 */
   }
 `;
 
@@ -88,8 +88,7 @@ const PreviousButton = styled.button`
 
   /* 호버 시 배경색 변경 효과 */
   &:hover {
-    color: #FFCE81; /* 호버 시 배경색 변경 */
+    color: #a75c51; /* 호버 시 배경색 변경 */
   }
 `;
-
 export default Onboarding3;

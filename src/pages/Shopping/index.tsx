@@ -203,7 +203,7 @@ const BuyButton = styled.button`
   margin-top: 10px;
 
   &:hover {
-    background-color: #ffce81; /* 호버 시 배경색 변경 */
+    background-color: #e87c6c70; /* 호버 시 배경색 변경 */
   }
 `;
 

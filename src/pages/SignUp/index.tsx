@@ -268,14 +268,14 @@
   const GenderButton = styled.button<{ isSelected: boolean }>`
     width: 48%;
     height: 50px;
-    background-color: ${({ isSelected }) => (isSelected ? "#ffce81" : "#fff")};
+    background-color: ${({ isSelected }) => (isSelected ? "#e87c6c70" : "#fff")};
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
 
     &:hover {
-      background-color: #ffce81;
+      background-color: #e87c6c70;
     }
   `;
 
@@ -345,7 +345,7 @@
     text-decoration: underline;
 
     &:hover {
-      color: #f45671;
+      color: #FFCE81;
     }
   `;
 
@@ -372,7 +372,7 @@
     margin-bottom: 30px;  // 여기에 여백 추가
     
     &:hover {
-      background-color: #f45671;
+      background-color: #e87c6c70;
     }
   `;
 

@@ -54,6 +54,7 @@ export const ECGImages = styled.div`
 
 export const ECGGroup = styled.div`
   margin-bottom: 16px;
+  align-items: center;
 `;
 
 export const Label = styled.div`
@@ -63,7 +64,7 @@ export const Label = styled.div`
 
 export const ECGImage = styled.img`
   height: 324px;
-  justify-content: center
+  justify-content: center;
   background-color: white;
   border: 1px solid #eee;
 `;
@@ -78,7 +79,8 @@ export const ButtonGroupOutside = styled.div`
 
 export const ECGLinedImage = styled.img`
   height: 120px;
-  justify-content: center
+  display: flex;
+  justify-content: center;
   background-color: white;
   border: 1px solid #eee;
 `;
