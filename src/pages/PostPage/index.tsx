@@ -40,6 +40,7 @@ const PostPage = () => {
             return (
               <Link
                 to={RouterPath.postDetailPage}
+                state={{ name: name, view: post.view }}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <PostItem

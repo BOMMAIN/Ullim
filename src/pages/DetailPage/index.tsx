@@ -5,8 +5,11 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoMdEye } from "react-icons/io";
 import Comment from "@components/Detail/Comment";
 import Menubar from "@components/features/Menubar";
+import { useLocation } from "react-router-dom";
 
 const DetailPage = () => {
+  const location = useLocation();
+  const { name, view } = location.state || {};
   return (
     <>
       <Wrapper>
@@ -17,7 +20,7 @@ const DetailPage = () => {
               <div style={{ display: "flex" }}>
                 <FaUserCircle size={35} />
                 <NameDate>
-                  닉네임 <br />
+                  {name} <br />
                   <span style={{ color: "#979797" }}>2024.01.01 17:50</span>
                 </NameDate>
               </div>
@@ -28,7 +31,7 @@ const DetailPage = () => {
                   alignItems: "center",
                 }}
               >
-                <IoMdEye style={{ margin: "5px" }} /> 73
+                <IoMdEye style={{ margin: "5px" }} /> {view}
               </div>
             </PersonInfo>
             <PostInfo>
@@ -37,7 +40,7 @@ const DetailPage = () => {
               <span>심근경색</span>
             </PostInfo>
             <Similarity>
-              닉네임님과 ~질병으로 비슷한 고민을 갖고 있어요!
+              {name}님과 심근경색으로 비슷한 고민을 갖고 있어요!
             </Similarity>
           </PostHeader>
           <Des>
@@ -47,7 +50,7 @@ const DetailPage = () => {
               너무 걱정되네요ㅠㅠ
             </PostDescription>
           </Des>
-          <PostImage src="/images/심전도사진.png" alt="심전도" />
+          <PostImage src="/images/심전도1.png" alt="심전도" />
           <Space>
             <span>신고하기</span>
           </Space>
@@ -141,7 +144,7 @@ const PostImage = styled.img`
 
 const Space = styled.div`
   width: 100%;
-  height: 100px;
+  height: 70px;
   border-bottom: 6px solid #e4ddd6;
   display: flex;
   justify-content: end;
