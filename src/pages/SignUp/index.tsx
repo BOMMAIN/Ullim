@@ -1,11 +1,12 @@
-  import React, { useState } from "react";
+  import React, { useState, useEffect } from "react";
   import styled from "styled-components";
-  import { CiSearch } from "react-icons/ci";
   import { MdOutlineDriveFolderUpload } from "react-icons/md";
 
   const SignUp = () => {
-    const [diagnosisImage, setDiagnosisImage] = useState<string | null>(null);
-    const [ecgImage, setEcgImage] = useState<string | null>(null);
+    const [diagnosisImage, setDiagnosisImage] = useState<File | null>(null);
+    const [diagnosisImageUrl, setDiagnosisImageUrl] = useState<string | null>(null);
+    const [ecgImage, setEcgImage] = useState<File | null>(null);
+    const [ecgImageUrl, setEcgImageUrl] = useState<string | null>(null);
     const [selectedGender, setSelectedGender] = useState<"여성" | "남성" | null>(null);
     const [nickname, setNickname] = useState<string>("");
     const [age, setAge] = useState<string>("10");
@@ -13,14 +14,34 @@
     const [acceptTerms, setAcceptTerms] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
 
+    useEffect(() => {
+      if (ecgImage) {
+        const url = URL.createObjectURL(ecgImage);
+        setEcgImageUrl(url);
+  
+        // 컴포넌트가 언마운트될 때 URL 해제
+        return () => {
+          URL.revokeObjectURL(url);
+        };
+      }
+    }, [ecgImage]);
+
+    useEffect(() => {
+      if (diagnosisImage) {
+        const url = URL.createObjectURL(diagnosisImage);
+        setDiagnosisImageUrl(url);
+  
+        return () => URL.revokeObjectURL(url);
+      }
+    }, [diagnosisImage]);
+    
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, type: "diagnosis" | "ecg") => {
       const files = event.target.files;
       if (files && files[0]) {
-        const fileUrl = URL.createObjectURL(files[0]);
         if (type === "diagnosis") {
-          setDiagnosisImage(fileUrl);
-        } else if (type === "ecg") {
-          setEcgImage(fileUrl);
+          setDiagnosisImage(files[0]);
+        } else {
+          setEcgImage(files[0]);
         }
       }
     };
@@ -28,8 +49,10 @@
     const handleFileReupload = (type: "diagnosis" | "ecg") => {
       if (type === "diagnosis") {
         setDiagnosisImage(null);
-      } else if (type === "ecg") {
+        setDiagnosisImageUrl(null);
+      } else {
         setEcgImage(null);
+        setEcgImageUrl(null);
       }
     };
 
@@ -37,14 +60,44 @@
       setSelectedGender(gender);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
       if (!nickname || !age || !selectedGender || !diagnosis || !acceptTerms) {
         setErrorMessage("모든 필수 항목을 채워주세요.");
-      } else {
-        setErrorMessage(""); // Reset error if all fields are valid
-        // Handle form submission logic here
+        return;
       }
-    };
+    
+      if (!ecgImage) {
+        setErrorMessage("심전도 데이터를 업로드해주세요.");
+        return;
+      }
+    
+      setErrorMessage("");
+    
+      const formData = new FormData();
+      formData.append("nickname", nickname);
+      formData.append("age", age);
+      formData.append("gender", selectedGender);
+      formData.append("diagnosis", diagnosis);
+      formData.append("ecg_file", ecgImage); // 심전도 파일 추가
+    
+      try {
+        const response = await fetch("http://127.0.0.1:5000/upload", {
+          method: "POST",
+          body: formData,
+        });
+    
+        if (!response.ok) {
+          throw new Error("업로드에 실패했습니다.");
+        }
+    
+        const result = await response.json();
+        console.log("결과:", result); // 모델 결과 출력
+      } catch (error) {
+        console.error("에러 발생:", error);
+        setErrorMessage("업로드 도중 오류가 발생했습니다.");
+      }
+    };    
+    
 
     return (
       <Container>
@@ -103,14 +156,14 @@
           </Row>
 
           <Row>
-            <Label>진단명</Label>
-            <Input 
-              type="text" 
-              placeholder="진단명 입력" 
-              value={diagnosis} 
-              onChange={(e) => setDiagnosis(e.target.value)} 
-            />
-          </Row>
+          <Label>진단명</Label>
+          <Input
+            type="text"
+            placeholder="진단명 입력"
+            value={diagnosis}
+            onChange={(e) => setDiagnosis(e.target.value)}
+          />
+        </Row>
 
           <Row>
             <Label>진단서(선택)</Label>
@@ -122,9 +175,9 @@
                 style={{ display: "none" }}
                 onChange={(e) => handleFileUpload(e, "diagnosis")}
               />
-              {diagnosisImage ? (
+              {diagnosisImageUrl ? (
                 <>
-                  <PreviewImage src={diagnosisImage} alt="Diagnosis Preview" />
+                  <PreviewImage src={diagnosisImageUrl} alt="Diagnosis Preview" />
                   <ReuploadText onClick={() => handleFileReupload("diagnosis")}>다시 선택하기</ReuploadText>
                 </>
               ) : (
@@ -144,14 +197,15 @@
             <FileUpload>
               <input
                 type="file"
-                accept="image/*"
+                name="ecg_file"
+                accept="application/json"
                 id="ecg-upload"
                 style={{ display: "none" }}
                 onChange={(e) => handleFileUpload(e, "ecg")}
               />
-              {ecgImage ? (
-                <>
-                  <PreviewImage src={ecgImage} alt="ECG Preview" />
+              {ecgImageUrl ? ( // Use ecgImageUrl here
+      <>
+        <PreviewImage src={ecgImageUrl} alt="ECG Preview" />
                   <ReuploadText onClick={() => handleFileReupload("ecg")}>다시 선택하기</ReuploadText>
                 </>
               ) : (
