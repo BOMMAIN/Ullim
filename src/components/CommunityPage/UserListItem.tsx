@@ -2,14 +2,19 @@ import styled from "styled-components";
 
 import { FaUserAlt } from "react-icons/fa";
 
-const UserListItem = () => {
+interface Props {
+  name: string;
+  per: number;
+}
+
+const UserListItem = ({ name, per }: Props) => {
   return (
     <Container>
       <FaUserAlt size={80} />
-      <Name>심정호</Name>
+      <Name>{name}</Name>
       <Des>
         닉네임님의 상황과
-        <br /> 55% 비슷해요!
+        <br /> {per}% 비슷해요!
       </Des>
     </Container>
   );

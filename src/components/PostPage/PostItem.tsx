@@ -1,22 +1,32 @@
 import styled from "styled-components";
 import { IoMdEye } from "react-icons/io";
 
-const PostItem = () => {
+interface PostProps {
+  name: string;
+  per: number;
+  title: string;
+  content: string;
+  view: number;
+}
+
+const PostItem = ({ name, per, title, content, view }: PostProps) => {
   return (
     <Container>
       <NameInfo>
-        닉네임 <span style={{ color: "#888" }}>| 심근경색</span>
+        {name} <span style={{ color: "#888" }}>| 심근경색</span>
       </NameInfo>
-      <Title>나이 50에 심근경색은 흔한건가요??</Title>
+      <Title>{title}</Title>
       <Content>
-        어제 심근경색 판정을 받은 사람입니다.
+        {content}
         <br />
         ...
       </Content>
       <BottomContainer>
-        <Des>닉네임님의 상황과 74% 비슷해요!</Des>
+        <Des>
+          {name}님의 상황과 {per}% 비슷해요!
+        </Des>
         <View>
-          <IoMdEye /> 100
+          <IoMdEye /> {view}
         </View>
       </BottomContainer>
     </Container>

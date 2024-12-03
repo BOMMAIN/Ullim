@@ -6,6 +6,7 @@ import { FaPen } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { RouterPath } from "@routes/path";
 import Menubar from "@components/features/Menubar";
+import { communityPersonInfo } from "./data";
 
 const CommunityPage = () => {
   return (
@@ -19,19 +20,10 @@ const CommunityPage = () => {
             </Button>
             <Button>심근경색</Button>
             <Button bgColor="#fff" color="#000">
-              50대
+              20대
             </Button>
             <Button bgColor="#fff" color="#000">
               여성
-            </Button>
-            <Button bgColor="#fff" color="#000">
-              ???
-            </Button>
-            <Button bgColor="#fff" color="#000">
-              ???
-            </Button>
-            <Button bgColor="#fff" color="#000">
-              ???
             </Button>
           </FilterContainer>
           <div
@@ -47,27 +39,16 @@ const CommunityPage = () => {
             />
           </div>
           <UserListContainer>
-            <UserLink to={RouterPath.postPage}>
-              <UserListItem />
-            </UserLink>
-            <UserLink to={RouterPath.postPage}>
-              <UserListItem />
-            </UserLink>
-            <UserLink to={RouterPath.postPage}>
-              <UserListItem />
-            </UserLink>
-            <UserLink to={RouterPath.postPage}>
-              <UserListItem />
-            </UserLink>
-            <UserLink to={RouterPath.postPage}>
-              <UserListItem />
-            </UserLink>
-            <UserLink to={RouterPath.postPage}>
-              <UserListItem />
-            </UserLink>
-            <UserLink to={RouterPath.postPage}>
-              <UserListItem />
-            </UserLink>
+            {communityPersonInfo.map((person) => {
+              return (
+                <UserLink
+                  to={RouterPath.postPage}
+                  state={{ name: person.name, per: person.per }}
+                >
+                  <UserListItem name={person.name} per={person.per} />
+                </UserLink>
+              );
+            })}
           </UserListContainer>
         </Content>
         <StyledLink to={RouterPath.postWritePage}>
