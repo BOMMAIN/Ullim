@@ -6,10 +6,42 @@ import { IoMdEye } from "react-icons/io";
 import Comment from "@components/Detail/Comment";
 import Menubar from "@components/features/Menubar";
 import { useLocation } from "react-router-dom";
+import { commentData } from "./data";
+import { useState } from "react";
 
 const DetailPage = () => {
   const location = useLocation();
   const { name, view } = location.state || {};
+
+  const [comments, setComments] = useState(commentData);
+  const [newComment, setNewComment] = useState("");
+
+  const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewComment(e.target.value);
+  };
+
+  const handleAddComment = () => {
+    if (newComment.trim() === "") return;
+
+    const now = new Date();
+    const formattedDate = `${now.getFullYear()}.${String(
+      now.getMonth() + 1
+    ).padStart(2, "0")}.${String(now.getDate()).padStart(2, "0")}`;
+    const formattedTime = `${String(now.getHours()).padStart(2, "0")}:${String(
+      now.getMinutes()
+    ).padStart(2, "0")}`;
+    const formattedDateTime = `${formattedDate} ${formattedTime}`;
+
+    const newCommentData = {
+      name: "보메인",
+      content: newComment,
+      date: formattedDateTime,
+    };
+
+    setComments((prevComments) => [...prevComments, newCommentData]);
+    setNewComment("");
+  };
+
   return (
     <>
       <Wrapper>
@@ -21,7 +53,7 @@ const DetailPage = () => {
                 <FaUserCircle size={35} />
                 <NameDate>
                   {name} <br />
-                  <span style={{ color: "#979797" }}>2024.01.01 17:50</span>
+                  <span style={{ color: "#979797" }}>2024.12.01 17:50</span>
                 </NameDate>
               </div>
               <div
@@ -55,11 +87,24 @@ const DetailPage = () => {
             <span>신고하기</span>
           </Space>
           <CommentSection>
-            <Comment />
-            <Comment />
-            <Comment />
+            {comments.map((comment, index) => (
+              <Comment
+                key={index}
+                name={comment.name}
+                content={comment.content}
+                date={comment.date}
+              />
+            ))}
           </CommentSection>
         </Content>
+        <CommentInputContainer>
+          <CommentInput
+            placeholder="댓글을 입력하세요..."
+            value={newComment}
+            onChange={handleCommentChange}
+          />
+          <CommentButton onClick={handleAddComment}>댓글 달기</CommentButton>
+        </CommentInputContainer>
       </Wrapper>
       <Menubar />
     </>
@@ -79,7 +124,7 @@ const Content = styled.div`
   width: 100%;
   border-radius: 8px;
   margin-top: 60px;
-  padding: 0 20px 30px;
+  padding: 0 20px 90px;
 `;
 
 const PostHeader = styled.div`
@@ -158,4 +203,37 @@ const CommentSection = styled.div`
   margin-top: 16px;
   display: flex;
   flex-direction: column;
+`;
+
+const CommentInputContainer = styled.div`
+  position: fixed;
+  bottom: 50px;
+  width: 430px;
+  display: flex;
+  padding: 10px;
+`;
+
+const CommentInput = styled.input`
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+  outline: none;
+`;
+
+const CommentButton = styled.button`
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #4a9efd;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #357ae8;
+  }
 `;

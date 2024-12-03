@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import { FaUserCircle } from "react-icons/fa";
 
-const Comment = () => {
+interface CommentProps {
+  name: string;
+  content: string;
+  date: string;
+}
+
+const Comment = ({ name, content, date }: CommentProps) => {
   return (
     <CommentWrapper>
       <div
@@ -18,15 +24,11 @@ const Comment = () => {
             alignItems: "center",
           }}
         >
-          <FaUserCircle size={40} style={{ margin: "5px" }} /> 사이버 닥터
+          <FaUserCircle size={30} style={{ margin: "5px" }} /> {name}
         </div>
-        <Date>2024.01.01 17:53</Date>
+        <Date>{date}</Date>
       </div>
-      <Content>
-        올려주신 사진으로 보아 큰 이상은 없는 것 같습니다.
-        <br />
-        안심하시고 결과 기다리시면 되겠습니다.
-      </Content>
+      <Content>{content}</Content>
     </CommentWrapper>
   );
 };
