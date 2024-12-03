@@ -20,7 +20,7 @@ const CommunityPage = () => {
             </Button>
             <Button>심근경색</Button>
             <Button bgColor="#fff" color="#000">
-              50대
+              20대
             </Button>
             <Button bgColor="#fff" color="#000">
               여성
@@ -41,7 +41,10 @@ const CommunityPage = () => {
           <UserListContainer>
             {communityPersonInfo.map((person) => {
               return (
-                <UserLink to={RouterPath.postPage}>
+                <UserLink
+                  to={RouterPath.postPage}
+                  state={{ name: person.name, per: person.per }}
+                >
                   <UserListItem name={person.name} per={person.per} />
                 </UserLink>
               );
