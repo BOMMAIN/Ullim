@@ -23,8 +23,7 @@ const Login = () => {
   };
 
   const handleSignUp = () => {
-    // 회원가입 처리 로직
-    navigate(RouterPath.signup)
+    navigate(RouterPath.signup);
   };
 
   return (

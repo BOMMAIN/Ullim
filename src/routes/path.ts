@@ -19,4 +19,6 @@ export const RouterPath = {
   tempDiagnosisUploadPage: "/temp-upload",
   shopping: "/shopping",
   record: "/record",
+  edit: "/edit",
+  diagnosislist: "/diagnosislist",
 };
