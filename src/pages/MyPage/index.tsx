@@ -25,10 +25,8 @@ const MyPage = () => {
       {/* 메뉴 리스트 */}
       <MenuContainer>
         <MenuItem title="심전도 분석 결과 기록 확인하기" onclick={() => navigate(RouterPath.heartlist)}/>
-        <MenuItem title="회원정보 수정하기"  onclick={() => navigate(RouterPath.heartlist)}/>
-        <MenuItem title="작성한 글 모아보기"  onclick={() => navigate(RouterPath.heartlist)}/>
-        <MenuItem title="북마크한 글 모아 보기"  onclick={() => navigate(RouterPath.heartlist)}/>
-        <MenuItem title="환경설정"  onclick={() => navigate(RouterPath.heartlist)}/>
+        <MenuItem title="진단서 분석 및 요약 기록 확인하기" onclick={() => navigate(RouterPath.diagnosislist)}/>
+        <MenuItem title="회원정보 수정하기"  onclick={() => navigate(RouterPath.edit)}/>
       </MenuContainer>
       <Menubar />
     </Container>

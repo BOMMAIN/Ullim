@@ -23,8 +23,7 @@ const Login = () => {
   };
 
   const handleSignUp = () => {
-    // 회원가입 처리 로직
-    alert("회원가입 버튼 클릭!");
+    navigate(RouterPath.signup);
   };
 
   return (

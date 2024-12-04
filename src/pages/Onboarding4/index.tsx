@@ -11,9 +11,10 @@ const Onboarding4 = () => {
         src="/images/온보딩4.png"
         alt="쉽게 이해하는 심전도"
       />
-      <Title>쉽게 이해하는 심전도 분석</Title>
+      <Title>쉽게 이해하는 진단서</Title>
       <Description>
-        심전도 데이터를 분석하고, 쉽게 이해할 수 있는 해설을 제공합니다.
+      어려운 의학 정보를 이해하기 쉽게 요약하여, 
+      <br></br>내 건강 상태를 보다 정확히 파악하세요.
       </Description>
       <NextButton onClick={() => navigate(RouterPath.login)}>진짜 시작하기!! 렛츠꼬! </NextButton> {/* 시작하기 버튼 추가 */}
     </Container>
