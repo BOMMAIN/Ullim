@@ -16,12 +16,11 @@
     const [isCustomInput, setIsCustomInput] = useState<boolean>(false);
     const [acceptTerms, setAcceptTerms] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
-  
+    
     useEffect(() => {
       if (ecgImage) {
         const url = URL.createObjectURL(ecgImage);
         setEcgImageUrl(url);
-  
         return () => URL.revokeObjectURL(url);
       }
     }, [ecgImage]);
@@ -34,7 +33,7 @@
         return () => URL.revokeObjectURL(url);
       }
     }, [diagnosisImage]);
-  
+
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, type: "diagnosis" | "ecg") => {
       const files = event.target.files;
       if (files && files[0]) {
@@ -110,7 +109,6 @@
         setErrorMessage("업로드 도중 오류가 발생했습니다.");
       }
     };
-  
 
     return (
       <Container>
@@ -205,7 +203,7 @@
           />
           )}
 
-          
+
         </Row>
 
           <Row>

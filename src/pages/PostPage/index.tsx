@@ -3,18 +3,23 @@ import Header from "@components/features/Header";
 import PostItem from "@components/PostPage/PostItem";
 import { useState } from "react";
 import { PiLineVertical } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { RouterPath } from "@routes/path";
 import Menubar from "@components/features/Menubar";
+import { postData } from "@components/PostPage/data";
 
 const PostPage = () => {
   type FilterType = "view" | "latest";
   const [filter, setFilter] = useState<FilterType>("view");
+
+  const location = useLocation();
+  const { name, per } = location.state || {};
+
   return (
     <>
       <Header />
       <Wrapper>
-        <Title>닉네임님의 글</Title>
+        <Title>{name}님의 글</Title>
         <Filter>
           <ViewSort
             isActive={filter === "view"}
@@ -31,30 +36,23 @@ const PostPage = () => {
           </Latest>
         </Filter>
         <Contents>
-          <Link
-            to={RouterPath.postDetailPage}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <PostItem />
-          </Link>
-          <Link
-            to={RouterPath.postDetailPage}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <PostItem />
-          </Link>
-          <Link
-            to={RouterPath.postDetailPage}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <PostItem />
-          </Link>
-          <Link
-            to={RouterPath.postDetailPage}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <PostItem />
-          </Link>
+          {postData.map((post) => {
+            return (
+              <Link
+                to={RouterPath.postDetailPage}
+                state={{ name: name, view: post.view }}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <PostItem
+                  name={name}
+                  per={per}
+                  title={post.title}
+                  content={post.content}
+                  view={post.view}
+                />
+              </Link>
+            );
+          })}
         </Contents>
       </Wrapper>
       <Menubar />
@@ -69,7 +67,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  margin: 60px 0 45px;
+  margin: 60px 0 0;
 `;
 
 const Title = styled.h2`
@@ -91,6 +89,7 @@ const Contents = styled.div`
   padding: 15px 10px 0;
   height: 100%;
   width: 100%;
+  padding-bottom: 90px;
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
