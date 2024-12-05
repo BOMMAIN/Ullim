@@ -14,7 +14,7 @@ const Edit = () => {
   const [id, setId] = useState<string>("bomain");
   const [pw, setPw] = useState<string>("1234");
   const [age, setAge] = useState("20");
-  const [diagnosis, setDiagnosis] = useState<string>("");
+  const [diagnosis, setDiagnosis] = useState<string>("심근경색");
   const [isCustomInput, setIsCustomInput] = useState<boolean>(false);
   const [acceptTerms, setAcceptTerms] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -309,8 +309,8 @@ const PrevButton = styled.button`
 `;
 
 const Title = styled.h2`
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 32px;
+  // font-weight: bold;
   margin: 0;
 `;
 

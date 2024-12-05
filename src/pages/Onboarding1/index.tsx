@@ -35,7 +35,7 @@ const Container = styled.div`
 
 // 이미지 스타일 정의
 const Image = styled.img`
-  width: 100px; /* 이미지 너비 설정 */
+  width: 150px; /* 이미지 너비 설정 */
   margin-bottom: 20px; /* 이미지와 설명 사이 간격 */
 `;
 
