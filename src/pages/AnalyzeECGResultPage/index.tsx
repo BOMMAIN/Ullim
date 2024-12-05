@@ -60,12 +60,14 @@ const AnalyzeECGResultPage = () => {
   const formatBotMessage = (response: string) => {
     try {
       const parsed: MedicalResponse = JSON.parse(response);
+      // Try advice first, then answer, then fall back to raw response
       return (
         <S.MessageContent>
-            {parsed.answer}
+          {parsed.advice || parsed.answer || response}
         </S.MessageContent>
       );
     } catch (e) {
+      // If parsing fails, return the original response
       return <S.MessageContent>{response}</S.MessageContent>;
     }
   };
