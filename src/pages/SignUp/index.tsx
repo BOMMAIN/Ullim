@@ -11,7 +11,7 @@
     const [nickname, setNickname] = useState<string>("");
     const [id, setId] = useState<string>("");
     const [pw, setPw] = useState<string>("");
-    const [age, setAge] = useState<string>("10");
+    const [age, setAge] = useState<string>("select");
     const [diagnosis, setDiagnosis] = useState<string>("");
     const [isCustomInput, setIsCustomInput] = useState<boolean>(false);
     const [acceptTerms, setAcceptTerms] = useState<boolean>(false);
@@ -148,6 +148,7 @@
           <Row>
             <Label>나이</Label>
             <Select value={age} onChange={(e) => setAge(e.target.value)}>
+              <option value="select">선택하세요</option>  
               <option value="10">10대</option>
               <option value="20">20대</option>
               <option value="30">30대</option>
@@ -182,6 +183,7 @@
           <Label>진단명</Label>
 
           <Select value={isCustomInput ? '입력하기' : diagnosis} onChange={handleDiagnosisChange}>
+          <option value="select">선택하세요</option>
           <option value="심근경색">심근경색</option>
           <option value="협심증">협심증</option>
           <option value="심부전">심부전</option>

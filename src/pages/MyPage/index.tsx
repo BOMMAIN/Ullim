@@ -5,6 +5,8 @@ import { MdNavigateNext } from "react-icons/md";
 import Menubar from "@components/features/Menubar";
 import { useNavigate } from 'react-router-dom';
 import { RouterPath } from '@routes/path';
+import { FaUserCircle } from "react-icons/fa";
+
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -12,9 +14,9 @@ const MyPage = () => {
     <Container>
       {/* 프로필 영역 */}
       <ProfileContainer>
-        <ProfileImage src="/images/프로필사진.jpg" alt="Profile" />
+        <FaUserCircle size="50" color="#9d6f68" style={{marginRight: "10px"}}/>
         <ProfileInfo>
-          <ProfileName>닉네임</ProfileName>
+          <ProfileName>심정호 님</ProfileName>
           <Logout onClick={() => navigate(RouterPath.login)}>
             로그아웃
             <MdNavigateNext />
