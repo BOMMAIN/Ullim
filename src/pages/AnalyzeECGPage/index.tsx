@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
+import { ChatService } from '../../api/chatServices';
+import { v4 as uuidv4 } from 'uuid';
+import type { ECGAnalysisResponse, ECGDetailedAnalysis } from '../../types/ecg';
 
 // Keyframes for left-to-right scan animation
 const scan = keyframes`
@@ -78,47 +81,114 @@ const LoadingText = styled.p`
 
 const AnalyzeECGPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [progress, setProgress] = useState(0);
+  const chatService = new ChatService();
+  const { file, isFromSignup, signupData } = location.state || {};
+  const sessionId = useRef(uuidv4()).current;
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
-    const duration = 10000; // Total time in ms (10 seconds)
+    const duration = 10000;
 
-    // Increment progress bar every 100ms
+    const analyzeECG = async () => {
+      try {
+        // 현재 어떤 데이터가 전송되는지 확인
+        console.log("Sending file:", file);
+        
+        const formData = new FormData();
+        formData.append('ecg_file', file);
+    
+        formData.forEach((value, key) => {
+          console.log(key, value);
+        });
+
+    
+        const response = await fetch('http://127.0.0.1:8000/upload', {
+          method: 'POST',
+          body: formData
+        });
+    
+        if (!response.ok) {
+          // 에러 응답의 자세한 내용 확인
+          const errorText = await response.text();
+          console.error('Server error response:', errorText);
+          throw new Error('ECG 분석 실패');
+        }
+        
+        const aiResult: ECGAnalysisResponse = await response.json();
+
+        const prompt = `당신은 심장 전문의입니다. 다음 AI가 진단한 심전도 결과를 자세히, 환자가 이해하기 쉽게 분석해주세요:
+        진단 결과: ${JSON.stringify(aiResult.results)}
+        
+        응답은 반드시 다음 JSON 형식으로 작성해주세요:
+        {
+          "analysis": {
+            "summary": "전반적인 심전도 상태에 대한 요약",
+            "mainFindings": "주요 발견사항 설명",
+            "implications": [
+              "이 진단이 의미하는 바 1",
+              "이 진단이 의미하는 바 2",
+              "이 진단이 의미하는 바 3"
+            ],
+            "recommendations": [
+              "환자를 위한 권장사항 1",
+              "환자를 위한 권장사항 2"
+            ],
+            "diagnoses": [
+              "한글로 번역된 진단명 1",
+              "한글로 번역된 진단명 2"
+            ]
+          }
+        }`;
+
+        const gptResponse = await chatService.chat(
+          'temp-user-id',
+          'analysis',
+          prompt
+        );
+
+        const analysisResult: ECGDetailedAnalysis = JSON.parse(gptResponse);
+
+        navigate('/analyze-result-page', {
+          state: {
+            aiResults: aiResult.results,
+            analysisResult,
+            isFromSignup,
+            signupData: {
+              ...signupData,
+              ecgFile: file,  // 원본 파일 추가
+            }
+          }
+        });
+
+      } catch (error) {
+        console.error('분석 중 오류 발생:', error);
+      }
+    };
+
     intervalId = setInterval(() => {
       setProgress((prev) => Math.min(prev + (100 / (duration / 100)), 100));
     }, 100);
 
-    // Navigate to result page after 10 seconds
-    const timer = setTimeout(() => {
-      clearInterval(intervalId);
-      navigate('/analyze-result-page'); // Replace with the actual result page route
-    }, duration);
+    analyzeECG();
 
     return () => {
       clearInterval(intervalId);
-      clearTimeout(timer);
     };
-  }, [navigate]);
+  }, [navigate, file, isFromSignup, signupData]);
 
   return (
     <AnalyzeContainer>
-      {/* Main Content */}
       <MainContent>
         <Title>심전도를 분석하는 중입니다...</Title>
-
-        {/* ECG Display */}
         <ECGDisplay>
           <ECGImage src="/images/ECG_example.png" alt="ECG Scan" />
           <ScanOverlay />
         </ECGDisplay>
-
-        {/* Progress Bar */}
         <ProgressBarContainer>
           <ProgressBar progress={progress} />
         </ProgressBarContainer>
-
-        {/* Loading Text */}
         <LoadingText>분석이 완료될 때까지 잠시만 기다려주세요!</LoadingText>
       </MainContent>
     </AnalyzeContainer>

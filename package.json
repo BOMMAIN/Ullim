@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.3.1",
     "axios": "^1.7.8",
     "craco-alias": "^3.0.1",
+    "http-proxy-middleware": "^3.0.3",
     "openai": "^4.73.1",
     "openapi": "^1.0.1",
     "react": "^18.3.1",

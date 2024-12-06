@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { analyzeImage } from '../../api/vision';
 import { parseDiagnosisText } from '../../api/diagnosis';
 
+
 // 애니메이션 정의
 const scan = keyframes`
   0% {
@@ -103,13 +104,20 @@ const AnalyzeDiagnosisPage = () => {
   const imageUrl = location.state?.imageUrl;
   const [progress, setProgress] = useState(0);
 
+  console.log("AnalyzeDiagnosis state:", location.state); // 디버깅용
+
+  const { 
+    isFromSignup, 
+    signupData 
+  } = location.state || {};
+
+
   useEffect(() => {
     let isNavigating = false;
     let isMounted = true;
 
     const analyzeData = async () => {
       try {
-        // Fake progress bar updates
         for (let i = 1; i <= 100; i++) {
           if (!isMounted) break;
           setProgress(i);
@@ -120,7 +128,24 @@ const AnalyzeDiagnosisPage = () => {
         const data = await parseDiagnosisText(extractedText);
 
         if (isMounted && !isNavigating) {
-          navigate('/medical-report', { state: { imageUrl, data } });
+          console.log("Navigating with state:", { 
+            imageUrl, 
+            data,
+            isFromSignup,  // 이 값이 제대로 전달되는지 확인
+            signupData 
+          });
+
+          navigate('/medical-report', { 
+            state: { 
+              imageUrl, 
+              data,
+              isFromSignup,  // 이 값을 확실히 전달
+              signupData: {
+                ...signupData,
+                diagnosisImageUrl: imageUrl  // 이미지 URL 추가해서 전달
+              }
+            } 
+          });
         }
       } catch (error) {
         if (isMounted && !isNavigating) {
@@ -138,7 +163,7 @@ const AnalyzeDiagnosisPage = () => {
     return () => {
       isMounted = false;
     };
-  }, [imageUrl, navigate]);
+  }, [imageUrl, navigate, isFromSignup, signupData]);
 
   return (
     <Container>

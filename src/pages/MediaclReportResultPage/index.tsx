@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { DiagnosisData } from '../../types/diagnosis';
+import { saveDiagnosisRecord } from '../../utils/diagnosisStorage';
+import { v4 as uuidv4 } from 'uuid';
 
 const scan = keyframes`
   0% { transform: translateY(-100%); }
@@ -144,9 +146,40 @@ const DiagnosisImage = styled.img`
 
 const MedicalReportResultPage: React.FC = () => {
   const location = useLocation();
-  const { imageUrl, data } = location.state as { 
-    imageUrl: string;
-    data: DiagnosisData;
+  const navigate = useNavigate();
+
+  console.log("MedicalReport state:", location.state);
+
+  const { 
+    imageUrl, 
+    data,
+    isFromSignup,
+    signupData 
+  } = location.state || {};
+
+  const handleClose = () => {
+    const record = {
+      id: uuidv4(),
+      timestamp: new Date().toISOString(),
+      imageUrl,
+      data,
+      analysisDate: new Date().toISOString()
+    };
+  
+    saveDiagnosisRecord(record);
+  
+    if (isFromSignup) {
+      navigate('/signup', {
+        state: {
+          signupData: signupData,
+          diagnosisAnalyzed: true,
+          diagnosisResult: record,
+          diagnosisImageUrl: imageUrl 
+        }
+      });
+    } else  {
+      navigate('/diagnosislist');
+    }
   };
 
 return (
@@ -154,7 +187,7 @@ return (
       <Header>
         <HeaderContent>
           <Title>진단서 분석 결과 확인하기</Title>
-          <CloseButton>×</CloseButton>
+          <CloseButton onClick={handleClose}>×</CloseButton>
         </HeaderContent>
       </Header>
 
@@ -192,7 +225,7 @@ return (
         <SummaryContainer>
           <SummaryTitle>검사 결과 요약</SummaryTitle>
           <SummaryList>
-            {data.summary.map((item, index) => (
+            {data.summary.map((item: string, index: number) => (
               <SummaryItem key={index}>{item}</SummaryItem>
             ))}
           </SummaryList>

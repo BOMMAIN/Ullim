@@ -468,3 +468,11 @@ export const Input = styled.input`
     }
   }
 `;
+
+// components/ECGResults/style.ts에 추가
+export const DiagnosisList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+`;

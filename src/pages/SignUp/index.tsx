@@ -1,8 +1,11 @@
   import React, { useState, useEffect } from "react";
   import styled from "styled-components";
   import { MdOutlineDriveFolderUpload } from "react-icons/md";
+  import { useLocation, useNavigate } from 'react-router-dom'
 
   const SignUp = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
     const [diagnosisImage, setDiagnosisImage] = useState<File | null>(null);
     const [diagnosisImageUrl, setDiagnosisImageUrl] = useState<string | null>(null);
     const [ecgImage, setEcgImage] = useState<File | null>(null);
@@ -16,6 +19,9 @@
     const [isCustomInput, setIsCustomInput] = useState<boolean>(false);
     const [acceptTerms, setAcceptTerms] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
+
+    const [ecgResult, setEcgResult] = useState<any>(null);
+    const [diagnosisResult, setDiagnosisResult] = useState<any>(null);
     
     useEffect(() => {
       if (ecgImage) {
@@ -34,16 +40,158 @@
       }
     }, [diagnosisImage]);
 
-    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, type: "diagnosis" | "ecg") => {
-      const files = event.target.files;
-      if (files && files[0]) {
-        if (type === "diagnosis") {
-          setDiagnosisImage(files[0]);
-        } else {
-          setEcgImage(files[0]);
+    // location.state를 확인하여 데이터 복원하는 useEffect 추가
+    useEffect(() => {
+      const state = location.state;
+      if (state) {
+        // 폼 데이터 복원
+        if (state.signupData) {
+          const {
+            nickname: savedNickname,
+            id: savedId,
+            pw: savedPw,
+            age: savedAge,
+            selectedGender: savedGender,
+            diagnosis: savedDiagnosis,
+            acceptTerms: savedAcceptTerms,
+            ecgImage: savedEcgImage,
+            diagnosisImage: savedDiagnosisImage,
+            ecgResult: savedEcgResult,
+            diagnosisResult: savedDiagnosisResult
+          } = state.signupData;
+    
+          // 기존 데이터 복원
+          setNickname(savedNickname || "");
+          setId(savedId || "");
+          setPw(savedPw || "");
+          setAge(savedAge || "select");
+          setSelectedGender(savedGender || null);
+          setDiagnosis(savedDiagnosis || "");
+          setAcceptTerms(savedAcceptTerms || false);
+    
+          // 파일 및 결과 복원
+          if (savedEcgImage) setEcgImage(savedEcgImage);
+          if (savedDiagnosisImage) setDiagnosisImage(savedDiagnosisImage);
+          if (savedEcgResult) setEcgResult(savedEcgResult);
+          if (savedDiagnosisResult) setDiagnosisResult(savedDiagnosisResult);
+        }
+
+        if (state.diagnosisImageUrl) {
+          setDiagnosisImageUrl(state.diagnosisImageUrl);
+        }
+        
+        // 분석 결과와 함께 전달된 이미지 URL도 처리
+        if (state.diagnosisResult?.imageUrl) {
+          setDiagnosisImageUrl(state.diagnosisResult.imageUrl);
+        }
+
+        if (state.ecgFile) {
+          setEcgImage(state.ecgFile);
+        }
+        
+        // 분석 결과와 함께 전달된 ECG 파일도 처리
+        if (state.ecgResult?.ecgFile) {
+          setEcgImage(state.ecgResult.ecgFile);
+        }
+    
+        // 새로운 분석 결과 처리
+        if (state.ecgAnalyzed && state.ecgResult) {
+          setEcgResult(state.ecgResult);
+        }
+        if (state.diagnosisAnalyzed && state.diagnosisResult) {
+          setDiagnosisResult(state.diagnosisResult);
         }
       }
+    }, [location.state]);
+
+// SignUp.tsx
+const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, type: "diagnosis" | "ecg") => {
+  const files = event.target.files;
+  if (files && files[0]) {
+    const file = files[0];
+    // 현재 상태의 모든 데이터를 포함
+    const currentFormData = {
+      nickname,
+      id,
+      pw,
+      age,
+      selectedGender,
+      diagnosis,
+      acceptTerms,
+      ecgImage,        // 기존 ECG 파일
+      ecgResult,       // 기존 ECG 분석 결과
+      diagnosisImage,  // 기존 진단서 파일
+      diagnosisResult  // 기존 진단서 분석 결과
     };
+
+    if (type === "diagnosis") {
+      const imageUrl = URL.createObjectURL(file);
+      setDiagnosisImage(file);
+      navigate('/analyze-diagnosis', {
+        state: {
+          imageUrl,
+          isFromSignup: true,
+          signupData: currentFormData
+        }
+      });
+    } else if (type === "ecg") {
+      setEcgImage(file);
+      navigate('/analyze-processing-page', {
+        state: {
+          file,
+          isFromSignup: true,
+          signupData: currentFormData
+        }
+      });
+    }
+  }
+};
+
+// 그리고 분석 결과가 돌아올 때 SignUp 페이지에서 처리
+useEffect(() => {
+  const state = location.state;
+  if (state) {
+    // 폼 데이터 복원
+    if (state.signupData) {
+      const {
+        nickname: savedNickname,
+        id: savedId,
+        pw: savedPw,
+        age: savedAge,
+        selectedGender: savedGender,
+        diagnosis: savedDiagnosis,
+        acceptTerms: savedAcceptTerms,
+        ecgImage: savedEcgImage,
+        diagnosisImage: savedDiagnosisImage,
+        ecgResult: savedEcgResult,
+        diagnosisResult: savedDiagnosisResult
+      } = state.signupData;
+
+      // 기존 데이터 복원
+      setNickname(savedNickname || "");
+      setId(savedId || "");
+      setPw(savedPw || "");
+      setAge(savedAge || "select");
+      setSelectedGender(savedGender || null);
+      setDiagnosis(savedDiagnosis || "");
+      setAcceptTerms(savedAcceptTerms || false);
+
+      // 파일 및 결과 복원
+      if (savedEcgImage) setEcgImage(savedEcgImage);
+      if (savedDiagnosisImage) setDiagnosisImage(savedDiagnosisImage);
+      if (savedEcgResult) setEcgResult(savedEcgResult);
+      if (savedDiagnosisResult) setDiagnosisResult(savedDiagnosisResult);
+    }
+
+    // 새로운 분석 결과 처리
+    if (state.ecgAnalyzed && state.ecgResult) {
+      setEcgResult(state.ecgResult);
+    }
+    if (state.diagnosisAnalyzed && state.diagnosisResult) {
+      setDiagnosisResult(state.diagnosisResult);
+    }
+  }
+}, [location.state]);
   
     const handleDiagnosisChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
       const value = e.target.value;
@@ -75,14 +223,14 @@
         setErrorMessage("모든 필수 항목을 채워주세요.");
         return;
       }
-  
-      if (!ecgImage) {
+    
+      if (!ecgImage && !ecgResult) {
         setErrorMessage("심전도 데이터를 업로드해주세요.");
         return;
       }
-  
+    
       setErrorMessage("");
-  
+    
       const formData = new FormData();
       formData.append("nickname", nickname);
       formData.append("id", id);
@@ -90,20 +238,36 @@
       formData.append("age", age);
       formData.append("gender", selectedGender);
       formData.append("diagnosis", diagnosis);
-      formData.append("ecg_file", ecgImage);
-  
+      
+      // 파일이나 분석 결과 추가
+      if (ecgImage) {
+        formData.append("ecg_file", ecgImage);
+      }
+      if (ecgResult) {
+        formData.append("ecg_analysis", JSON.stringify(ecgResult));
+      }
+      if (diagnosisImage) {
+        formData.append("diagnosis_file", diagnosisImage);
+      }
+      if (diagnosisResult) {
+        formData.append("diagnosis_analysis", JSON.stringify(diagnosisResult));
+      }
+    
       try {
-        const response = await fetch("http://127.0.0.1:5000/upload", {
-          method: "POST",
-          body: formData,
-        });
-  
-        if (!response.ok) {
-          throw new Error("업로드에 실패했습니다.");
-        }
-  
-        const result = await response.json();
-        console.log("결과:", result);
+        // const response = await fetch("http://localhost:8000/upload", {
+        //   method: "POST",
+        //   body: formData,
+        // });
+    
+        // if (!response.ok) {
+        //   throw new Error("업로드에 실패했습니다.");
+        // }
+    
+        // const result = await response.json();
+        // console.log("결과:", result);
+        
+        // 성공 시 다음 페이지로 이동
+        navigate('/community');
       } catch (error) {
         console.error("에러 발생:", error);
         setErrorMessage("업로드 도중 오류가 발생했습니다.");
@@ -164,18 +328,20 @@
           <Row>
             <Label>성별</Label>
             <GenderContainer>
-              <GenderButton
-                isSelected={selectedGender === "여성"}
-                onClick={() => handleGenderSelect("여성")}
-              >
-                여성
-              </GenderButton>
-              <GenderButton
-                isSelected={selectedGender === "남성"}
-                onClick={() => handleGenderSelect("남성")}
-              >
-                남성
-              </GenderButton>
+            <GenderButton
+              $isSelected={selectedGender === "여성"}
+              onClick={() => handleGenderSelect("여성")}
+              data-selected={selectedGender === "여성"}
+            >
+              여성
+            </GenderButton>
+            <GenderButton
+              $isSelected={selectedGender === "남성"}
+              onClick={() => handleGenderSelect("남성")}
+              data-selected={selectedGender === "남성"}
+            >
+              남성
+            </GenderButton>
             </GenderContainer>
           </Row>
 
@@ -363,15 +529,14 @@ const GenderContainer = styled.div`
   gap: 10px;
 `;
 
-const GenderButton = styled.button<{ isSelected: boolean }>`
+const GenderButton = styled.button<{ $isSelected: boolean }>`
   width: 48%;
   height: 50px;
-  background-color: ${({ isSelected }) => (isSelected ? "#e87c6c70" : "#fff")};
+  background-color: ${({ $isSelected }) => ($isSelected ? "#e87c6c70" : "#fff")};
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-
   &:hover {
     background-color: #e87c6c70;
   }
