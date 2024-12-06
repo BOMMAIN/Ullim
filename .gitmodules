@@ -1,0 +1,3 @@
+[submodule "ECGAD"]
+	path = ECGAD
+	url = https://github.com/MediaBrain-SJTU/ECGAD

@@ -19,7 +19,7 @@ const ExerciseAnalysis: React.FC<ExerciseAnalysisProps> = ({ metrics, onRegister
     <S.Content>
       <S.Title>AI 예측 분석</S.Title>
       <S.RecommendationText>
-        하루 10분 정도 가벼운 운동을 추천해요
+        하루 30분 정도 가벼운 운동을 추천해요
       </S.RecommendationText>
       <S.ComparisonText>
         분석 결과 비슷한 질환을 가진 사용자의 70%가 하고있어요

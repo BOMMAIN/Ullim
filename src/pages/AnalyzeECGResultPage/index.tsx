@@ -2,8 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import * as S from '../../components/ECGResults/style';
 import { ChatService } from '../../api/chatServices';
 import { ECGData } from 'types/chat';
+import { ECGRecord } from 'types/ecg';
 import { v4 as uuidv4 } from 'uuid';
-import { MedicalResponse } from '../../types/chat'
+import { MedicalResponse } from '../../types/chat';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { saveECGRecord } from '../../utils/ecgStorage';
 
 interface TabContainerProps {
   activeTab: string;
@@ -19,14 +22,6 @@ interface Message {
   content: string;
   status?: 'error';
 }
-
-const tempECGData: ECGData = {
-  pd: 110,
-  pr: 160,
-  qt: 380,
-  qtc: 450,
-  stSegment: "수평 또는 하향 경사진 ST 분절 하강"
-};
 
 const TabContainer = ({ activeTab, setActiveTab, children }: TabContainerProps) => (
   <S.TabWrapper>
@@ -48,29 +43,38 @@ const TabContainer = ({ activeTab, setActiveTab, children }: TabContainerProps) 
 );
 
 const AnalyzeECGResultPage = () => {
-  const [messages, setMessages] = useState<Message[]>(() => {
-    const saved = localStorage.getItem('chat_messages');
-    return saved ? JSON.parse(saved) : [{
-      id: '1',
-      type: 'bot',
-      content: '안녕하세요, 울림입니다. 궁금하신 부분에 대해 질문해주세요'
-    }];
-  });
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { 
+    aiResults, 
+    analysisResult,
+    isFromSignup,
+    signupData 
+  } = location.state || {};
+
+  const sessionId = useRef(uuidv4()).current;
+
+  const [messages, setMessages] = useState<Message[]>([{
+    id: '1',
+    type: 'bot',
+    content: '안녕하세요, 울림입니다. 궁금하신 부분에 대해 질문해주세요'
+  }]);
 
   const formatBotMessage = (response: string) => {
     try {
       const parsed: MedicalResponse = JSON.parse(response);
+      // Try advice first, then answer, then fall back to raw response
       return (
         <S.MessageContent>
-            {parsed.answer}
+          {parsed.advice || parsed.answer || response}
         </S.MessageContent>
       );
     } catch (e) {
+      // If parsing fails, return the original response
       return <S.MessageContent>{response}</S.MessageContent>;
     }
   };
 
-  const [ecgData, setECGData] = useState<ECGData>(tempECGData);
   const [activeTab, setActiveTab] = useState('result');
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -78,21 +82,34 @@ const AnalyzeECGResultPage = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const retryTimeoutRef = useRef<NodeJS.Timeout>();
 
-  // ECG 데이터를 가져오는 함수
-  const fetchECGData = async () => {
-    // 실제 API 호출로 대체할 수 있습니다.
-    // const response = await fetch('/api/ecg-data');
-    // const data = await response.json();
-    // setECGData(data);
-
-    // 임시로 tempECGData를 사용
-    setECGData(tempECGData);
+    // X 버튼 클릭 핸들러
+const handleClose = () => {
+  const record = {
+    id: sessionId,
+    timestamp: new Date().toISOString(),
+    analysisResults: aiResults,
+    gptAnalysis: analysisResult.analysis,
+    messages,
+    activeTab,
+    ecgFile: location.state.signupData?.ecgFile  // 파일 포함
   };
-
-  useEffect(() => {
-    fetchECGData();
-  }, []);
-
+  
+  saveECGRecord(record);
+  
+  if (isFromSignup) {
+    navigate('/signup', { 
+      state: { 
+        signupData: { ...signupData }, 
+        ecgAnalyzed: true,
+        ecgResult: record,
+        ecgFile: location.state.signupData?.ecgFile  // 파일도 함께 전달
+      } 
+    });
+  } else {
+    navigate('/records');
+  }
+};
+  
   // 채팅 이력 저장
   useEffect(() => {
     localStorage.setItem('chat_messages', JSON.stringify(messages));
@@ -112,7 +129,7 @@ const AnalyzeECGResultPage = () => {
   
     const userMessage: Message = {
       id: Date.now().toString(),
-      type: 'user' as const,
+      type: 'user',
       content: inputValue
     };
   
@@ -165,65 +182,52 @@ const AnalyzeECGResultPage = () => {
       }
     };
 
-  return (
-    <S.Container>
-      <S.Header>
-        <S.HeaderTitle>심전도 분석 결과 확인하기</S.HeaderTitle>
-        <S.CloseButton>×</S.CloseButton>
-      </S.Header>
+    return (
+      <S.Container>
+        <S.Header>
+          <S.HeaderTitle>심전도 분석 결과 확인하기</S.HeaderTitle>
+          <S.CloseButton onClick={handleClose}>×</S.CloseButton>
+        </S.Header>
+  
+        <S.Timestamp>{new Date().toLocaleString()}</S.Timestamp>
+  
+        <S.ECGImages>
+          <S.ECGGroup>
+            <S.ECGImage src="/images/ECG_example.png" />
+          </S.ECGGroup>
+        </S.ECGImages>
+  
+        <S.HeaderTitle>분석 결과</S.HeaderTitle>
+  
+        <TabContainer activeTab={activeTab} setActiveTab={setActiveTab}>
+          {activeTab === 'result' ? (
+            <S.ResultSection>
+  {/* 요약 및 주요 발견사항 */}
+  <S.ResultItem>
+    <S.HeartIcon>❤️</S.HeartIcon>
+    <S.ResultText>
+      {analysisResult?.analysis?.summary || "분석 결과를 불러올 수 없습니다."}
+    </S.ResultText>
+  </S.ResultItem>
 
-      <S.Timestamp>2024.01.01 17:50</S.Timestamp>
+  {/* 진단 목록 */}
+  <S.DiagnosisList>
+  {analysisResult?.analysis?.mainFindings && (
+    <div>{analysisResult.analysis.mainFindings}</div>
+  )}
+  </S.DiagnosisList>
 
-      <S.ECGImages>
-        <S.ECGGroup>
-          <S.ECGImage src= "/images/ECG_example.png" />
-        </S.ECGGroup>
-      </S.ECGImages>
-
-      <S.HeaderTitle>분석 결과</S.HeaderTitle>
-
-      <S.ECGImages>
-        <S.ECGGroup>
-          <S.ECGLinedImage src="/images/ECG_point.png" />
-        </S.ECGGroup>
-      </S.ECGImages>
-
-      <S.MetricsTable>
-        <tbody>
-          <tr>
-            <S.MetricCell>Pd</S.MetricCell>
-            <S.MetricCell>{ecgData.pd}ms</S.MetricCell>
-          </tr>
-          <tr>
-            <S.MetricCell>PR</S.MetricCell>
-            <S.MetricCell>{ecgData.pr}ms</S.MetricCell>
-          </tr>
-          <tr>
-            <S.MetricCell>QT</S.MetricCell>
-            <S.MetricCell>{ecgData.qt}ms</S.MetricCell>
-          </tr>
-          <tr>
-            <S.MetricCell>QTc</S.MetricCell>
-            <S.MetricCell>{ecgData.qtc}ms</S.MetricCell>
-          </tr>
-        </tbody>
-      </S.MetricsTable>
-
-      <TabContainer activeTab={activeTab} setActiveTab={setActiveTab}>
-        {activeTab === 'result' ? (
-          <S.ResultSection>
-            <S.ResultItem>
-              <S.HeartIcon>❤️</S.HeartIcon>
-              <S.ResultText>QTc가 {ecgData.qtc}ms로 높은 수치입니다.</S.ResultText>
-            </S.ResultItem>
-            <S.AnalysisText>
-              심전도 검사에서 "ST 분절"이 {ecgData.stSegment}이(가) 발견되었습니다.<br></br>
-              이는 심장 근육에 충분한 산소가 공급되지 않고 있음을 의미할 수 있습니다.<br></br>
-              심장이 피를 제대로 받지 못해서 힘들어하고 있을 가능성이 있습니다.
-            </S.AnalysisText>
-          </S.ResultSection>
-  ) : (
-    <S.ChatContainer>
+  {/* 의미하는 바와 권장사항 */}
+  <S.AnalysisText>
+    {analysisResult?.analysis?.implications?.map((implication: string, index: number) => (
+      <React.Fragment key={index}>
+        <br />• {implication}
+      </React.Fragment>
+    ))}
+  </S.AnalysisText>
+</S.ResultSection>
+          ) : (
+            <S.ChatContainer>
       <S.ChatMessages>
         {messages.map(message => (
           <React.Fragment key={message.id}>

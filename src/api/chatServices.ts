@@ -82,7 +82,7 @@ export class ChatService {
         }
         위 형식 외의 다른 필드(advice 등)는 포함하지 마세요.`;
       } else {
-        prompt = this.getSystemPrompt(type, history.ecgData);
+        prompt = this.getSystemPrompt(type, undefined, history.ecgData);
       }
   
       try {
@@ -118,15 +118,21 @@ export class ChatService {
       }
     }
 
-  private getSystemPrompt(type: 'analysis'|'medical'|'lifestyle', ecgData?: ECGData): string {
-    const prompts = {
-      analysis: `JSON 형식으로 응답해주세요. 당신은 심전도 분석에 뛰어난 심장 질환 전문의 입니다. 다음 데이터를 바탕으로 분석해주세요. : ${JSON.stringify(tempECGData)}`,
-      medical: `당신은 심장 질환 전문의입니다.  다음 데이터를 바탕으로 분석해주세요:${JSON.stringify(tempECGData)}. JSON 형식으로 다음 구조에 맞춰 답변해주세요:
-      {
-        "answer": "질문에 대한 대답"
-      }`,
-      lifestyle: `JSON 형식으로 응답해주세요. 다음 심전도 결과를 바탕으로 생활습관 개선점을 조언해주세요: ${JSON.stringify(tempECGData)}`
-    };
-    return prompts[type];
-  }
+    private getSystemPrompt(type: 'analysis'|'medical'|'lifestyle', aiResults?: string[], ecgData?: ECGData): string {
+      const prompts = {
+        analysis: `JSON 형식으로 응답해주세요. 당신은 심전도 분석에 뛰어난 심장 질환 전문의 입니다. 다음 데이터를 바탕으로 분석해주세요.`,
+        
+        medical: `당신은 심장 질환 전문의입니다. 
+    다음 AI 진단 결과를 바탕으로 분석해주세요: 
+    ${aiResults ? JSON.stringify(aiResults) : '데이터 없음'}
+    
+    JSON 형식으로 다음 구조에 맞춰 답변해주세요:
+    {
+      "answer": "질문에 대한 대답"
+    }`,
+        
+        lifestyle: `JSON 형식으로 응답해주세요. 다음 심전도 결과를 바탕으로 생활습관 개선점을 조언해주세요: ${JSON.stringify(tempECGData)}`
+      };
+      return prompts[type];
+    }
 }

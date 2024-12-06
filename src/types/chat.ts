@@ -97,8 +97,15 @@ export interface DietRecommendation {
   };
 }
 
+// Make answer optional since it might not always be present
 export interface MedicalResponse {
-  answer: string;
+  pd?: number;
+  pr?: number;
+  qt?: number;
+  qtc?: number;
+  stSegment?: string;
+  advice?: string;
+  answer?: string;  // Changed to optional
 }
 
 // 파일을 모듈로 만들기 위한 빈 export

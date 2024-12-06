@@ -98,7 +98,7 @@ const Edit = () => {
     formData.append("ecg_file", ecgImage);
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/upload", {
+      const response = await fetch("http://localhost:8000/upload", {
         method: "POST",
         body: formData,
       });
@@ -368,18 +368,17 @@ justify-content: flex-start;
 gap: 10px;
 `;
 
-const GenderButton = styled.button<{ isSelected: boolean }>`
-width: 48%;
-height: 50px;
-background-color: ${({ isSelected }) => (isSelected ? "#e87c6c70" : "#fff")};
-border: 1px solid #ccc;
-border-radius: 8px;
-font-size: 16px;
-cursor: pointer;
-
-&:hover {
-  background-color: #e87c6c70;
-}
+const GenderButton = styled.button<{ $isSelected: boolean }>`
+  width: 48%;
+  height: 50px;
+  background-color: ${({ $isSelected }) => ($isSelected ? "#e87c6c70" : "#fff")};
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  &:hover {
+    background-color: #e87c6c70;
+  }
 `;
 
 const InputWithIcon = styled.div`
