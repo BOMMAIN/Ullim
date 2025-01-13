@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
-import { ChatService } from '../../api/chatServices';
-import { v4 as uuidv4 } from 'uuid';
-import type { ECGAnalysisResponse, ECGDetailedAnalysis } from '../../types/ecg';
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import styled, { keyframes } from "styled-components";
+import { ChatService } from "../../api/chatServices";
+import { v4 as uuidv4 } from "uuid";
+import type { ECGAnalysisResponse, ECGDetailedAnalysis } from "../../types/ecg";
 
 // Keyframes for left-to-right scan animation
 const scan = keyframes`
@@ -62,7 +62,7 @@ const ScanOverlay = styled.div`
 const ProgressBarContainer = styled.div`
   width: 100%;
   height: 8px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 4px;
   overflow: hidden;
 `;
@@ -70,7 +70,7 @@ const ProgressBarContainer = styled.div`
 const ProgressBar = styled.div<{ progress: number }>`
   width: ${(props) => props.progress}%;
   height: 100%;
-  background-color: #E87C6C;
+  background-color: #e87c6c;
   transition: width 0.2s ease-in-out;
 `;
 
@@ -95,27 +95,26 @@ const AnalyzeECGPage = () => {
       try {
         // 현재 어떤 데이터가 전송되는지 확인
         console.log("Sending file:", file);
-        
+
         const formData = new FormData();
-        formData.append('ecg_file', file);
-    
+        formData.append("ecg_file", file);
+
         formData.forEach((value, key) => {
           console.log(key, value);
         });
 
-    
-        const response = await fetch('http://127.0.0.1:8000/upload', {
-          method: 'POST',
-          body: formData
+        const response = await fetch("http://127.0.0.1:8000/upload", {
+          method: "POST",
+          body: formData,
         });
-    
+
         if (!response.ok) {
           // 에러 응답의 자세한 내용 확인
           const errorText = await response.text();
-          console.error('Server error response:', errorText);
-          throw new Error('ECG 분석 실패');
+          console.error("Server error response:", errorText);
+          throw new Error("ECG 분석 실패");
         }
-        
+
         const aiResult: ECGAnalysisResponse = await response.json();
 
         const prompt = `당신은 심장 전문의입니다. 다음 AI가 진단한 심전도 결과를 자세히, 환자가 이해하기 쉽게 분석해주세요:
@@ -143,32 +142,31 @@ const AnalyzeECGPage = () => {
         }`;
 
         const gptResponse = await chatService.chat(
-          'temp-user-id',
-          'analysis',
+          "temp-user-id",
+          "analysis",
           prompt
         );
 
         const analysisResult: ECGDetailedAnalysis = JSON.parse(gptResponse);
 
-        navigate('/analyze-result-page', {
+        navigate("/analyze-result-page", {
           state: {
             aiResults: aiResult.results,
             analysisResult,
             isFromSignup,
             signupData: {
               ...signupData,
-              ecgFile: file,  // 원본 파일 추가
-            }
-          }
+              ecgFile: file, // 원본 파일 추가
+            },
+          },
         });
-
       } catch (error) {
-        console.error('분석 중 오류 발생:', error);
+        console.error("분석 중 오류 발생:", error);
       }
     };
 
     intervalId = setInterval(() => {
-      setProgress((prev) => Math.min(prev + (100 / (duration / 100)), 100));
+      setProgress((prev) => Math.min(prev + 100 / (duration / 100), 100));
     }, 100);
 
     analyzeECG();
