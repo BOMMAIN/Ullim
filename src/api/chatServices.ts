@@ -15,6 +15,9 @@ const tempECGData: ECGData = {
   stSegment: "수평 또는 하향 경사진 ST 분절 하강"
 };
 
+const ecgRecords = JSON.parse(localStorage.getItem('ecg_records') || '[]');
+const latestECG = ecgRecords[ecgRecords.length - 1];
+
 export class ChatService {
     private histories: Map<string, ChatHistory> = new Map();
 
@@ -29,18 +32,19 @@ export class ChatService {
       };
     }
 
-
     async chat(userId: string, type: 'analysis'|'medical'|'lifestyle', userMessage: string, aiResults?: string[]) {
       let history = this.histories.get(userId) || this.initHistory(userId);
       let prompt = '';
+
+
   
       if (userMessage.includes('운동 추천')) {
-        prompt = `당신은 운동 전문가입니다. 다음 심전도 결과를 바탕으로 운동 추천을 해주세요: ${JSON.stringify(tempECGData)}
-        응답은 반드시 다음 JSON 형식으로 제공해주세요:
+        prompt = `당신은 운동 전문가입니다. 다음 심전도 결과를 바탕으로 운동 추천을 해주세요: ${JSON.stringify(latestECG)}
+        응답은 반드시 다음 JSON 형식으로 제공해주세요. 아래는 그 예시입니다:
         {
           "type": "exercise",
           "content": "운동 추천 설명",
-          "exercises": [
+          "exercises":
             {
               "name": "운동명",
               "intensity": "강도(상/중/하)",
@@ -50,16 +54,16 @@ export class ChatService {
               "period": "추천 기간(주)",
               "caution": "주의사항"
             }
-          ],
+          ,
           "metrics": {
-            "bloodSugar": -3,
-            "bloodPressure": -5,
-            "weight": -3,
-            "bodyWeightKg": -2
+            "bloodSugar": -3(줄어드는 혈당),
+            "bloodPressure": -5(줄어드는 혈압),
+            "weight": -3(줄어드는 몸무게),
+            "bodyWeightKg": -2(줄어드는 몸무게)
           }
         }`;
       } else if (userMessage.includes('식단 추천')) {
-        prompt = `당신은 영양 전문가입니다 다음 심전도 결과를 바탕으로 식단 추천을 해주세요: ${JSON.stringify(tempECGData)}. 아래 형식의 JSON만 반환하세요. 다른 설명이나 조언은 하지 마세요.
+        prompt = `당신은 영양 전문가입니다 다음 심전도 결과를 바탕으로 식단 추천을 해주세요: ${JSON.stringify(latestECG)}. 아래 형식의 JSON만 반환하세요. 다른 설명이나 조언은 하지 마세요.
         JSON 응답 형식:
         {
           "type": "diet",
@@ -123,15 +127,21 @@ export class ChatService {
         analysis: `JSON 형식으로 응답해주세요. 당신은 심전도 분석에 뛰어난 심장 질환 전문의 입니다. 다음 데이터를 바탕으로 분석해주세요.`,
         
         medical: `당신은 심장 질환 전문의입니다. 
-    다음 AI 진단 결과를 바탕으로 분석해주세요: 
-    ${aiResults ? JSON.stringify(aiResults) : '데이터 없음'}
-    
-    JSON 형식으로 다음 구조에 맞춰 답변해주세요:
-    {
-      "answer": "질문에 대한 대답"
-    }`,
+          다음 AI 진단 결과를 바탕으로 분석해주세요: 
+          ${aiResults ? JSON.stringify(aiResults) : '데이터 없음'}
+          
+          JSON 형식으로 다음 구조에 맞춰 답변해주세요:
+          {
+            "answer": "질문에 대한 대답"
+          }`,
         
-        lifestyle: `JSON 형식으로 응답해주세요. 다음 심전도 결과를 바탕으로 생활습관 개선점을 조언해주세요: ${JSON.stringify(tempECGData)}`
+        lifestyle: `다음 심전도 결과를 바탕으로 생활습관 개선점을 조언해주세요: ${JSON.stringify(latestECG)}
+        
+        JSON 형식으로 다음 구조에 맞춰 답변해주세요:
+        {
+          "answer": "질문에 대한 대답"
+        }
+        `
       };
       return prompts[type];
     }
