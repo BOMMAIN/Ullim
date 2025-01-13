@@ -5,6 +5,75 @@ import { ChatService } from '../../api/chatServices';
 import { v4 as uuidv4 } from 'uuid';
 import type { ECGAnalysisResponse, ECGDetailedAnalysis } from '../../types/ecg';
 
+interface ECGSimilarityData {
+  id: string;
+  timestamp: string;
+  metadata: {
+    originalFilename: string;
+    analysisDate: string;
+  };
+  aiAnalysis: {
+    results: any;
+    mainFeatures: string[];
+  };
+  expertAnalysis: {
+    diagnoses: string[];
+    mainFindings: string;
+    implications: string[];
+  };
+}
+
+const prepareForSimilarityComparison = (
+  aiResults: any, 
+  analysisResult: ECGDetailedAnalysis, 
+  filename: string
+): ECGSimilarityData => {
+  return {
+    id: uuidv4(),
+    timestamp: new Date().toISOString(),
+    metadata: {
+      originalFilename: filename,
+      analysisDate: new Date().toISOString()
+    },
+    aiAnalysis: {
+      results: aiResults,
+      mainFeatures: []  // 팀원이 필요한 특징을 추출할 수 있도록 비워둠
+    },
+    expertAnalysis: {
+      diagnoses: analysisResult.analysis.diagnoses,
+      mainFindings: analysisResult.analysis.mainFindings,
+      implications: analysisResult.analysis.implications
+    }
+  };
+};
+
+const exportForSimilarity = (
+  aiResults: any, 
+  analysisResult: ECGDetailedAnalysis,
+  filename: string
+) => {
+  const similarityData = prepareForSimilarityComparison(
+    aiResults, 
+    analysisResult, 
+    filename
+  );
+  
+  const blob = new Blob(
+    [JSON.stringify(similarityData, null, 2)], 
+    { type: 'application/json' }
+  );
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  
+  link.href = url;
+  link.download = `ecg-similarity-data-${timestamp}.json`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+};
+
 // Keyframes for left-to-right scan animation
 const scan = keyframes`
   0% { left: -100%; }
@@ -150,6 +219,8 @@ const AnalyzeECGPage = () => {
 
         const analysisResult: ECGDetailedAnalysis = JSON.parse(gptResponse);
 
+        exportForSimilarity(aiResult.results, analysisResult, file.name);
+        
         navigate('/analyze-result-page', {
           state: {
             aiResults: aiResult.results,

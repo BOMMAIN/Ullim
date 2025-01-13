@@ -139,7 +139,12 @@ const handleClose = () => {
     setIsTyping(true);
   
     try {
-      const response = await chatService.chat(userId, 'lifestyle', inputValue);
+      const response = await chatService.chat(
+        userId, 
+        'medical',
+        inputValue,
+        aiResults // location.state에서 받아온 결과 전달
+      );
       const parsedResponse = typeof response === 'string' ? JSON.parse(response) : response;
       console.log('Response:', response);
       

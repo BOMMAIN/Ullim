@@ -4,9 +4,10 @@ export interface ECGAnalysisResponse {
   
   export interface ECGDetailedAnalysis {
     analysis: {
-      qtcAnalysis: string;
-      stSegmentAnalysis: string;
+      summary: string;
+      mainFindings: string;
       implications: string[];
+      recommendations: string[];
       diagnoses: string[];
     }
   }

@@ -30,7 +30,7 @@ export class ChatService {
     }
 
 
-    async chat(userId: string, type: 'analysis'|'medical'|'lifestyle', userMessage: string) {
+    async chat(userId: string, type: 'analysis'|'medical'|'lifestyle', userMessage: string, aiResults?: string[]) {
       let history = this.histories.get(userId) || this.initHistory(userId);
       let prompt = '';
   
@@ -82,7 +82,7 @@ export class ChatService {
         }
         위 형식 외의 다른 필드(advice 등)는 포함하지 마세요.`;
       } else {
-        prompt = this.getSystemPrompt(type, undefined, history.ecgData);
+        prompt = this.getSystemPrompt(type, aiResults);
       }
   
       try {
