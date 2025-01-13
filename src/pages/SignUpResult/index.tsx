@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { translateToKorean } from "./translate";
+import { useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { analyzeEcgAndReport } from "./analyzeEcgAndReport";
@@ -10,6 +11,7 @@ const ResultPage = () => {
   const { ecgImage, diagnosisImage } = location.state || {};
   const [analysisResult, setAnalysisResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [translatedResults, setTranslatedResults] = useState<string[]>([]);
 
   useEffect(() => {
     const analyzeImages = async () => {
@@ -21,8 +23,15 @@ const ResultPage = () => {
       setLoading(true);
       try {
         const result = await analyzeEcgAndReport(ecgImage, diagnosisImage);
-        console.log("종합 의견:", result);
         setAnalysisResult(result);
+
+        // ✅ 번역 후 바로 사용
+        const translations = await Promise.all(
+          result.ecgAnalysis.results.map((item: string) =>
+            translateToKorean(item)
+          )
+        );
+        setTranslatedResults(translations);
       } catch (error) {
         console.error("분석 중 오류 발생:", error);
         alert("분석 중 오류가 발생했습니다.");
@@ -32,7 +41,7 @@ const ResultPage = () => {
     };
 
     analyzeImages();
-  }, [ecgImage, diagnosisImage]);
+  }, [ecgImage, diagnosisImage, navigate]);
 
   const handleClose = () => {
     navigate("/community");
@@ -60,26 +69,17 @@ const ResultPage = () => {
             <Card>
               <CardTitle>🩺 심전도 분석</CardTitle>
               <CardContent>
-                {typeof analysisResult.ecgAnalysis === "object" ? (
-                  <>
-                    <p>
-                      <strong>심박수:</strong>{" "}
-                      {analysisResult.ecgAnalysis.heartRate}
-                    </p>
-                    <p>
-                      <strong>비정상 박동 수:</strong>{" "}
-                      {analysisResult.ecgAnalysis.abnormalBeats}
-                    </p>
-                    <p>
-                      <strong>해석:</strong>{" "}
-                      {analysisResult.ecgAnalysis.interpretation}
-                    </p>
-                  </>
-                ) : (
-                  <PreformattedText>
-                    {JSON.stringify(analysisResult.ecgAnalysis, null, 2)}
-                  </PreformattedText>
-                )}
+                <ul>
+                  {translatedResults.length > 0
+                    ? translatedResults.map((translation, index) => (
+                        <li key={index}>✅ {translation}</li>
+                      ))
+                    : analysisResult.ecgAnalysis.results.map(
+                        (result: string, index: number) => (
+                          <li key={index}>🟡 {result}</li>
+                        )
+                      )}
+                </ul>
               </CardContent>
             </Card>
 
@@ -90,10 +90,7 @@ const ResultPage = () => {
                 <PreformattedText>
                   {analysisResult.reportAnalysis.summary.map(
                     (result: string, index: number) => (
-                      <div>
-                        ✅ {result}
-                        <br /> {/* ✅ 줄바꿈 추가 */}
-                      </div>
+                      <div key={index}>✅ {result}</div>
                     )
                   )}
                 </PreformattedText>
@@ -115,7 +112,7 @@ const ResultPage = () => {
 export default ResultPage;
 
 const Container = styled.div`
-  max-width: 600px; /* ✅ 모든 카드의 최대 크기를 동일하게 설정 */
+  max-width: 600px;
   margin: 20px auto 50px;
   padding: 20px;
   background: #f9f9f9;
@@ -143,7 +140,7 @@ const ResultContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  align-items: center; /* ✅ 모든 카드 크기를 중앙 정렬로 고정 */
+  align-items: center;
 `;
 
 const Card = styled.div`
@@ -153,8 +150,8 @@ const Card = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   word-wrap: break-word;
   overflow-x: hidden;
-  width: 100%; /* ✅ 카드의 너비를 100%로 고정 */
-  max-width: 500px; /* ✅ 최대 크기 제한 */
+  width: 100%;
+  max-width: 500px;
 `;
 
 const CardTitle = styled.h3`
