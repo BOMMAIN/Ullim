@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { analyzeEcgAndReport } from "./analyzeEcgAndReport";
+import { IoIosClose } from "react-icons/io";
 
 const ResultPage = () => {
   const location = useLocation();
@@ -33,68 +34,81 @@ const ResultPage = () => {
     analyzeImages();
   }, [ecgImage, diagnosisImage]);
 
+  const handleClose = () => {
+    navigate("/community");
+  };
+
   return (
-    <Container>
-      <Title>📊 심전도 및 진단서 분석 결과</Title>
+    <>
+      <div
+        style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}
+      >
+        <CloseButton onClick={handleClose}>
+          <IoIosClose size={40} />
+        </CloseButton>
+      </div>
+      <Container>
+        <Title>📊 심전도 및 진단서 분석 결과</Title>
 
-      {loading && (
-        <LoadingText>🌀 분석 중입니다... 잠시만 기다려주세요!</LoadingText>
-      )}
+        {loading && (
+          <LoadingText>🌀 분석 중입니다... 잠시만 기다려주세요!</LoadingText>
+        )}
 
-      {analysisResult && (
-        <ResultContainer>
-          {/* 심전도 분석 결과 카드 */}
-          <Card>
-            <CardTitle>🩺 심전도 분석</CardTitle>
-            <CardContent>
-              {typeof analysisResult.ecgAnalysis === "object" ? (
-                <>
-                  <p>
-                    <strong>심박수:</strong>{" "}
-                    {analysisResult.ecgAnalysis.heartRate}
-                  </p>
-                  <p>
-                    <strong>비정상 박동 수:</strong>{" "}
-                    {analysisResult.ecgAnalysis.abnormalBeats}
-                  </p>
-                  <p>
-                    <strong>해석:</strong>{" "}
-                    {analysisResult.ecgAnalysis.interpretation}
-                  </p>
-                </>
-              ) : (
-                <PreformattedText>
-                  {JSON.stringify(analysisResult.ecgAnalysis, null, 2)}
-                </PreformattedText>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* 진단서 분석 결과 카드 */}
-          <Card>
-            <CardTitle>📄 진단서 분석</CardTitle>
-            <CardContent>
-              <PreformattedText>
-                {analysisResult.reportAnalysis.summary.map(
-                  (result: string, index: number) => (
-                    <div>
-                      ✅ {result}
-                      <br /> {/* ✅ 줄바꿈 추가 */}
-                    </div>
-                  )
+        {analysisResult && (
+          <ResultContainer>
+            {/* 심전도 분석 결과 카드 */}
+            <Card>
+              <CardTitle>🩺 심전도 분석</CardTitle>
+              <CardContent>
+                {typeof analysisResult.ecgAnalysis === "object" ? (
+                  <>
+                    <p>
+                      <strong>심박수:</strong>{" "}
+                      {analysisResult.ecgAnalysis.heartRate}
+                    </p>
+                    <p>
+                      <strong>비정상 박동 수:</strong>{" "}
+                      {analysisResult.ecgAnalysis.abnormalBeats}
+                    </p>
+                    <p>
+                      <strong>해석:</strong>{" "}
+                      {analysisResult.ecgAnalysis.interpretation}
+                    </p>
+                  </>
+                ) : (
+                  <PreformattedText>
+                    {JSON.stringify(analysisResult.ecgAnalysis, null, 2)}
+                  </PreformattedText>
                 )}
-              </PreformattedText>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          {/* 종합 결과 카드 */}
-          <SummaryCard>
-            <CardTitle>📈 종합 결과</CardTitle>
-            <SummaryText>{analysisResult.summary}</SummaryText>
-          </SummaryCard>
-        </ResultContainer>
-      )}
-    </Container>
+            {/* 진단서 분석 결과 카드 */}
+            <Card>
+              <CardTitle>📄 진단서 분석</CardTitle>
+              <CardContent>
+                <PreformattedText>
+                  {analysisResult.reportAnalysis.summary.map(
+                    (result: string, index: number) => (
+                      <div>
+                        ✅ {result}
+                        <br /> {/* ✅ 줄바꿈 추가 */}
+                      </div>
+                    )
+                  )}
+                </PreformattedText>
+              </CardContent>
+            </Card>
+
+            {/* 종합 결과 카드 */}
+            <SummaryCard>
+              <CardTitle>📈 종합 결과</CardTitle>
+              <SummaryText>{analysisResult.summary}</SummaryText>
+            </SummaryCard>
+          </ResultContainer>
+        )}
+      </Container>
+    </>
   );
 };
 
@@ -102,7 +116,7 @@ export default ResultPage;
 
 const Container = styled.div`
   max-width: 600px; /* ✅ 모든 카드의 최대 크기를 동일하게 설정 */
-  margin: 50px auto;
+  margin: 20px auto 50px;
   padding: 20px;
   background: #f9f9f9;
   border-radius: 12px;
@@ -171,4 +185,19 @@ const SummaryText = styled.p`
   font-weight: bold;
   color: #333;
   text-align: left;
+`;
+
+const CloseButton = styled.button`
+  padding: 2px 7px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 20px;
+
+  &:hover {
+    background: #c0392b;
+  }
 `;
