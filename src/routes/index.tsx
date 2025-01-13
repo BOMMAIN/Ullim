@@ -23,14 +23,14 @@ import Shopping from "@pages/Shopping";
 import Record from "@pages/Record";
 import Edit from "@pages/Edit";
 import Diagnosislist from "@pages/Diagnosislist";
-
-
+import ResultPage from "@pages/SignUpResult";
 
 const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
       { path: RouterPath.myPage, element: <MyPage /> },
+      { path: RouterPath.result, element: <ResultPage /> },
       { path: RouterPath.postPage, element: <PostPage /> },
       { path: RouterPath.communityPage, element: <CommunityPage /> },
       { path: RouterPath.postWritePage, element: <PostWritePage /> },
@@ -58,8 +58,11 @@ const router = createBrowserRouter([
         path: RouterPath.analyzeDiagnosisPage,
         element: <AnalyzeDiagnosisPage />,
       },
-      { path: RouterPath.chatPage, element: <ChatPage/>},
-      { path: RouterPath.tempDiagnosisUploadPage, element: <TempDiagnosisUploadPage/>}, // 임시!!!!!
+      { path: RouterPath.chatPage, element: <ChatPage /> },
+      {
+        path: RouterPath.tempDiagnosisUploadPage,
+        element: <TempDiagnosisUploadPage />,
+      }, // 임시!!!!!
     ],
   },
 ]);
