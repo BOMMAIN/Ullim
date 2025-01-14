@@ -96,7 +96,22 @@ const SignUp = () => {
       return;
     }
 
-    if (ecgImage && diagnosisImage) {
+    if (diagnosisImage) {
+      const imageUrl = URL.createObjectURL(diagnosisImage);
+      navigate("/analyze-diagnosis", {
+        state: {
+          imageUrl, // 이미지 URL 전달
+          isFromSignup: true,
+          signupData: {
+            nickname,
+            id,
+            pw,
+            age,
+            selectedGender,
+          },
+        },
+      });
+    } else if (ecgImage && diagnosisImage) {
       navigate("/result", { state: { ecgImage, diagnosisImage } });
     } else {
       navigate("/community");

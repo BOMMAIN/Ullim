@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
-import { DiagnosisData } from '../../types/diagnosis';
-import { saveDiagnosisRecord } from '../../utils/diagnosisStorage';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import styled, { keyframes } from "styled-components";
+import { DiagnosisData } from "../../types/diagnosis";
+import { saveDiagnosisRecord } from "../../utils/diagnosisStorage";
+import { v4 as uuidv4 } from "uuid";
 
 const scan = keyframes`
   0% { transform: translateY(-100%); }
@@ -84,7 +84,7 @@ const TableHeader = styled.th<{ $width?: string }>`
   padding: 0.75rem 1rem;
   text-align: left;
   background-color: #f9fafb;
-  width: ${(props) => props.$width || 'auto'};
+  width: ${(props) => props.$width || "auto"};
 `;
 
 const TableData = styled.td`
@@ -116,7 +116,7 @@ const SummaryItem = styled.li`
   position: relative;
 
   &::before {
-    content: '•';
+    content: "•";
     position: absolute;
     left: 0;
     color: #6b7280;
@@ -150,39 +150,35 @@ const MedicalReportResultPage: React.FC = () => {
 
   console.log("MedicalReport state:", location.state);
 
-  const { 
-    imageUrl, 
-    data,
-    isFromSignup,
-    signupData 
-  } = location.state || {};
+  const { imageUrl, data, isFromSignup, signupData } = location.state || {};
 
   const handleClose = () => {
-    const record = {
-      id: uuidv4(),
-      timestamp: new Date().toISOString(),
-      imageUrl,
-      data,
-      analysisDate: new Date().toISOString()
-    };
-  
-    saveDiagnosisRecord(record);
-  
-    if (isFromSignup) {
-      navigate('/signup', {
-        state: {
-          signupData: signupData,
-          diagnosisAnalyzed: true,
-          diagnosisResult: record,
-          diagnosisImageUrl: imageUrl 
-        }
-      });
-    } else  {
-      navigate('/diagnosislist');
-    }
+    navigate("/community");
+    // const record = {
+    //   id: uuidv4(),
+    //   timestamp: new Date().toISOString(),
+    //   imageUrl,
+    //   data,
+    //   analysisDate: new Date().toISOString()
+    // };
+
+    // saveDiagnosisRecord(record);
+
+    // if (isFromSignup) {
+    //   navigate('/signup', {
+    //     state: {
+    //       signupData: signupData,
+    //       diagnosisAnalyzed: true,
+    //       diagnosisResult: record,
+    //       diagnosisImageUrl: imageUrl
+    //     }
+    //   });
+    // } else  {
+    //   navigate('/diagnosislist');
+    // }
   };
 
-return (
+  return (
     <Container>
       <Header>
         <HeaderContent>
@@ -203,7 +199,9 @@ return (
                 <TableHeader>병명</TableHeader>
                 <TableData>
                   {data.mainDisease && <div>(주) {data.mainDisease}</div>}
-                  {data.subDisease && <div className="text-gray-500">(부) {data.subDisease}</div>}
+                  {data.subDisease && (
+                    <div className="text-gray-500">(부) {data.subDisease}</div>
+                  )}
                 </TableData>
               </TableRow>
               <TableRow>
