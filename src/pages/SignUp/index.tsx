@@ -111,6 +111,21 @@ const SignUp = () => {
           },
         },
       });
+    } else if (ecgImage) {
+      const file = ecgImage;
+      navigate("/analyze-processing-page", {
+        state: {
+          file,
+          isFromSignup: true,
+          signupData: {
+            nickname,
+            id,
+            pw,
+            age,
+            selectedGender,
+          },
+        },
+      });
     } else if (ecgImage && diagnosisImage) {
       navigate("/result", { state: { ecgImage, diagnosisImage } });
     } else {
