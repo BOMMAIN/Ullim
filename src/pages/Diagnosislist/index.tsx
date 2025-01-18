@@ -1,19 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import '../../index.css';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
+import { DiagnosisRecord } from '../../types/diagnosis';
+import { getDiagnosisRecords } from '../../utils/diagnosisStorage';
 
 const Diagnosislist = () => {
   const navigate = useNavigate();
+  const [records, setRecords] = useState<DiagnosisRecord[]>([]);
+
+  useEffect(() => {
+    const loadRecords = () => {
+      const savedRecords = getDiagnosisRecords();
+      console.log('Loaded records:', savedRecords); // 디버깅용
+      setRecords(savedRecords);
+    };
+    loadRecords();
+  }, []);
 
   const goBack = () => {
-    navigate(-1); // 이전 페이지로 이동
+    navigate(-1);
+  };
+
+  const handleRecordClick = (record: DiagnosisRecord) => {
+    navigate(`/diagnosis-detail/${record.id}`);
   };
 
   return (
     <Container>
-      <br></br>
+      <br />
       <Header>
         <PrevButton onClick={goBack}>
           <MdNavigateBefore />
@@ -22,28 +38,23 @@ const Diagnosislist = () => {
       </Header>
       <Bar />
       <ListContainer>
-        <List>
-          <Heartimg 
-            src="/images/진단서2.jpg"
-            alt="Profile"  
-          />
-          <Date>2024.01.01</Date>
-          <DetailsButton>
-            <MdNavigateNext />
-          </DetailsButton>
-        </List>
-        <List>
-          <Heartimg 
-            src="/images/진단서3.jpg"
-            alt="Profile"  
-          />
-          <Date>2024.05.01</Date>
-          <DetailsButton>
-            <MdNavigateNext />
-          </DetailsButton>
-        </List>
+        {records.map((record) => (
+          <List key={record.id} onClick={() => handleRecordClick(record)}>
+            <Heartimg
+              src={record.imageData || "/images/진단서2.jpg"}  // Base64 데이터 사용
+              alt="Diagnosis"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = "/images/진단서2.jpg";
+              }}
+            />
+            <DateText>{new Date(record.timestamp).toLocaleDateString()}</DateText>
+            <DetailsButton>
+              <MdNavigateNext />
+            </DetailsButton>
+          </List>
+        ))}
       </ListContainer>
-      <CheckButton>
+      <CheckButton onClick={() => navigate('/analyze-diagnosis')}>
         진단서 분석 및 요약하기
       </CheckButton>
     </Container>
@@ -109,11 +120,11 @@ const Heartimg = styled.img`
   flex-shrink: 0; /* 이미지 크기 고정 */
 `;
 
-const Date = styled.div`
-  font-size: 16px;
-  display: flex;
-  align-items: left;
-  
+const DateText = styled.div`
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  text-align: center;
 `;
 
 const DetailsButton = styled.div`
