@@ -19,12 +19,14 @@ interface DietAnalysisProps {
     decrease: string[];
   };
   onRegister: () => void;
+  showRegisterButton?: boolean;
 }
 
 const DietAnalysis: React.FC<DietAnalysisProps> = ({ 
   recommendations = [], 
   nutritionGuidelines = { increase: [], decrease: [] }, 
-  onRegister 
+  onRegister,
+  showRegisterButton = true, 
 }) => {
   if (!recommendations.length) return null;
  
@@ -65,10 +67,14 @@ const DietAnalysis: React.FC<DietAnalysisProps> = ({
         </S.GuidelineBox>
       </S.GuidelinesSection>
 
+      {showRegisterButton && (
       <S.Question>추천을 받아들이겠습니까?</S.Question>
+    )}
+      {showRegisterButton && (
       <S.ButtonGroup>
-        <S.AcceptButton onClick={onRegister}>등록</S.AcceptButton>
-      </S.ButtonGroup>
+      <S.AcceptButton onClick={onRegister}>등록</S.AcceptButton>
+    </S.ButtonGroup>
+    )}
     </S.Container>
   );
 };

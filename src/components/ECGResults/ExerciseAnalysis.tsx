@@ -1,25 +1,60 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface ExerciseMetrics {
+export interface ExerciseMetrics {
   bloodSugar: number;
   bloodPressure: number;
   weight: number;
   bodyWeightKg: number;
-}
+  exercises?: {
+    name: string;
+    intensity: string;
+    duration: string;
+    frequency: string;
+    caution: string;
+  };
+ }
 
-interface ExerciseAnalysisProps {
+ interface ExerciseRecommendation {
+  type: 'exercise';
+  content: string;
+  exercises: Exercise;
   metrics: ExerciseMetrics;
-  onRegister: () => void;
+ }
+
+ interface Exercise {
+  name: string;
+  intensity: string;
+  duration: string;
+  repetitions: string;
+  frequency: string;
+  period: string;
+  caution: string;
 }
 
-const ExerciseAnalysis: React.FC<ExerciseAnalysisProps> = ({ metrics, onRegister }) => {
+ export interface ExerciseAnalysisProps {
+  metrics: ExerciseMetrics;
+  recommendation: ExerciseRecommendation;
+  onRegister: () => void;
+  showRegisterButton?: boolean;
+}
+
+export const ExerciseAnalysis: React.FC<ExerciseAnalysisProps> = ({  
+  metrics, 
+  recommendation,
+  showRegisterButton = true, 
+  onRegister  }) => {
+  console.log('Props received:', { metrics, recommendation });
+  console.log('Exercises structure:', recommendation.exercises);
+
   return (
     <S.Container>
     <S.Content>
       <S.Title>AI 예측 분석</S.Title>
       <S.RecommendationText>
-        하루 30분 정도 가벼운 운동을 추천해요
+      <S.RecommendationText>
+  {recommendation.exercises.duration} 정도 {recommendation.exercises.name}을 추천해요
+</S.RecommendationText>
       </S.RecommendationText>
       <S.ComparisonText>
         분석 결과 비슷한 질환을 가진 사용자의 70%가 하고있어요
@@ -41,10 +76,12 @@ const ExerciseAnalysis: React.FC<ExerciseAnalysisProps> = ({ metrics, onRegister
       <S.EffectText>
         한달간 했을 때 다음과 같은 효과를 얻을 수 있어요.
       </S.EffectText>
+      {showRegisterButton && (
       <S.Question>추천을 받아들이겠습니까?</S.Question>
-      <S.RegisterButton onClick={onRegister}>
-        등록
-      </S.RegisterButton>
+    )}
+      {showRegisterButton && (
+      <S.RegisterButton onClick={onRegister}>등록</S.RegisterButton>
+    )}
     </S.Content>
   </S.Container>
   );

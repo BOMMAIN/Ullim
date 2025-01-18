@@ -21,4 +21,6 @@ export const RouterPath = {
   record: "/record",
   edit: "/edit",
   diagnosislist: "/diagnosislist",
+  ecgRecordDetail: "/ecg-record-detail/:id",
+  diagnosisRecordDetail: "/diagnosis-record-detail/:id",
 };

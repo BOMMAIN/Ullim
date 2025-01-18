@@ -23,6 +23,9 @@ import Shopping from "@pages/Shopping";
 import Record from "@pages/Record";
 import Edit from "@pages/Edit";
 import Diagnosislist from "@pages/Diagnosislist";
+import ECGRecordPage from "@pages/ECGRecordPage";  
+import DiagnosisRecordPage from "@pages/DiagnosisRecordPage";
+import ECGUploadPage from "@pages/ECGUploadPage";
 
 
 
@@ -60,6 +63,15 @@ const router = createBrowserRouter([
       },
       { path: RouterPath.chatPage, element: <ChatPage/>},
       { path: RouterPath.tempDiagnosisUploadPage, element: <TempDiagnosisUploadPage/>}, // 임시!!!!!
+      { path: RouterPath.ecgRecordDetail, element: <ECGRecordPage /> },
+      { 
+        path: "/diagnosis-detail/:id",  // URL 패턴 변경
+        element: <DiagnosisRecordPage /> 
+      },
+      { 
+        path: "/ecg-upload", 
+        element: <ECGUploadPage /> 
+      },
     ],
   },
 ]);

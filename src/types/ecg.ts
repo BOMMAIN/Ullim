@@ -4,9 +4,10 @@ export interface ECGAnalysisResponse {
   
   export interface ECGDetailedAnalysis {
     analysis: {
-      qtcAnalysis: string;
-      stSegmentAnalysis: string;
+      summary: string;
+      mainFindings: string;
       implications: string[];
+      recommendations: string[];
       diagnoses: string[];
     }
   }
@@ -14,14 +15,16 @@ export interface ECGAnalysisResponse {
   export interface ECGRecord {
     id: string;
     timestamp: string;
-    analysisResults: string[];  // AI 모델의 진단 결과 배열
+    analysisResults: any;
     gptAnalysis: {
-      qtcAnalysis: string;
-      stSegmentAnalysis: string;
-      implications: string[];
+      summary?: string;
+      mainFindings?: string;
+      implications?: string[];
     };
     messages: Message[];
     activeTab: string;
+    ecgFile?: File;           // 저장 전 원본 파일
+    ecgFileData?: string;     // Base64로 변환된 파일 데이터
   }
   
   export interface ECGData {
