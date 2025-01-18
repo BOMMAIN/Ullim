@@ -25,7 +25,7 @@ import Edit from "@pages/Edit";
 import Diagnosislist from "@pages/Diagnosislist";
 import ECGRecordPage from "@pages/ECGRecordPage";  
 import DiagnosisRecordPage from "@pages/DiagnosisRecordPage";
-
+import ECGUploadPage from "@pages/ECGUploadPage";
 
 
 
@@ -67,6 +67,10 @@ const router = createBrowserRouter([
       { 
         path: "/diagnosis-detail/:id",  // URL 패턴 변경
         element: <DiagnosisRecordPage /> 
+      },
+      { 
+        path: "/ecg-upload", 
+        element: <ECGUploadPage /> 
       },
     ],
   },

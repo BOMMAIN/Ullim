@@ -39,17 +39,10 @@ const HeartList = () => {
       <ListContainer>
         {records.map((record) => (
           <List key={record.id} onClick={() => handleRecordClick(record)}>
-            {record.ecgFileData ? (  // Base64 데이터 사용
               <Heartimg
-                src={record.ecgFileData}  // 직접 Base64 문자열 사용
-                alt="ECG Result"
-              />
-            ) : (
-              <Heartimg
-                src="/images/default-ecg.png"  // 기본 이미지
+                src="/images/ECG_example.png"  // 기본 이미지
                 alt="Default ECG"
               />
-            )}
             <DateText>
               {new Date(record.timestamp).toLocaleDateString()}
             </DateText>
@@ -59,7 +52,7 @@ const HeartList = () => {
           </List>
         ))}
       </ListContainer>
-      <CheckButton onClick={() => navigate('/analyze')}>
+      <CheckButton onClick={() => navigate('/ecg-upload')}>
         검사하기
       </CheckButton>
     </Container>
