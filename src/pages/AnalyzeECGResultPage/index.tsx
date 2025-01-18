@@ -84,7 +84,7 @@ const AnalyzeECGResultPage = () => {
 
     // X 버튼 클릭 핸들러
 const handleClose = () => {
-  const record = {
+  const record: ECGRecord = {
     id: sessionId,
     timestamp: new Date().toISOString(),
     analysisResults: aiResults,

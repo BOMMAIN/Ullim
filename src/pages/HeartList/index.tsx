@@ -1,49 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import '../../index.css';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
+import { getECGRecords } from '../../utils/ecgStorage';
+import { ECGRecord } from 'types/ecg';
 
 const HeartList = () => {
   const navigate = useNavigate();
+  const [records, setRecords] = useState<ECGRecord[]>([]);
+
+  useEffect(() => {
+    const loadRecords = async () => {
+      const savedRecords = await getECGRecords();
+      setRecords(savedRecords);
+    };
+    loadRecords();
+  }, []);
 
   const goBack = () => {
-    navigate(-1); // 이전 페이지로 이동
+    navigate(-1);
+  };
+
+  const handleRecordClick = (record: ECGRecord) => {
+    navigate(`/ecg-record-detail/${record.id}`);
   };
 
   return (
     <Container>
-      <br></br>
+      <br />
       <Header>
         <PrevButton onClick={goBack}>
           <MdNavigateBefore />
         </PrevButton>
         <Title>심전도 분석 결과 기록</Title>
       </Header>
-      <Bar />
+      <Bar/>
       <ListContainer>
-        <List>
-          <Heartimg 
-            src="/images/심전도1.png"
-            alt="Profile"  
-          />
-          <Date>2024.01.01</Date>
-          <DetailsButton>
-            <MdNavigateNext />
-          </DetailsButton>
-        </List>
-        <List>
-          <Heartimg 
-            src="/images/심전도2.png"
-            alt="Profile"  
-          />
-          <Date>2024.05.01</Date>
-          <DetailsButton>
-            <MdNavigateNext />
-          </DetailsButton>
-        </List>
+        {records.map((record) => (
+          <List key={record.id} onClick={() => handleRecordClick(record)}>
+            {record.ecgFileData ? (  // Base64 데이터 사용
+              <Heartimg
+                src={record.ecgFileData}  // 직접 Base64 문자열 사용
+                alt="ECG Result"
+              />
+            ) : (
+              <Heartimg
+                src="/images/default-ecg.png"  // 기본 이미지
+                alt="Default ECG"
+              />
+            )}
+            <DateText>
+              {new Date(record.timestamp).toLocaleDateString()}
+            </DateText>
+            <DetailsButton>
+              <MdNavigateNext />
+            </DetailsButton>
+          </List>
+        ))}
       </ListContainer>
-      <CheckButton>
+      <CheckButton onClick={() => navigate('/analyze')}>
         검사하기
       </CheckButton>
     </Container>
@@ -109,11 +125,10 @@ const Heartimg = styled.img`
   flex-shrink: 0; /* 이미지 크기 고정 */
 `;
 
-const Date = styled.div`
+const DateText = styled.div`
   font-size: 16px;
   display: flex;
   align-items: left;
-  
 `;
 
 const DetailsButton = styled.div`
